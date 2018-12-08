@@ -27,8 +27,48 @@
 #define BUF_SIZE 1024*10
 
 #define NUM_NODES(height) ((1 << (height + 1)) - 1)
+#define PARENT(x) ((x - 1) / 2)
 #define LEFT_CHILD(x) (2 * x + 1)
 #define RIGHT_CHILD(x) (2 * x + 2)
+
+/**
+ * Store the heap.
+ */
+typedef struct {
+    uint8_t height;
+    uint32_t num_nodes;
+    uint32_t occupied_nodes;
+    uint64_t* data;
+} Heap;
+
+/**
+ * Swap two nodes in the heap.
+ */
+void swap(uint64_t* a, uint64_t* b) {
+    uint64_t tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+/**
+ * Insert into the heap.
+ */
+void insert(Heap *heap, uint64_t value) {
+    if (heap->occupied_nodes < heap->num_nodes) {
+        // Heap is not full, insert at end and buble up
+        int node_pos = heap->occupied_nodes;
+        heap->data[node_pos] = value;
+        heap->occupied_nodes += 1;
+        // Now bubble up
+        while (node_pos != 0 && (heap->data[node_pos] > heap->data[PARENT(node_pos)])) {
+            swap(&heap->data[node_pos], &heap->data[PARENT(node_pos)]);
+            node_pos = PARENT(node_pos);
+        }
+        return;
+    } else {
+        // Heap is full. If value less than root, replace root and bubble down.
+    }
+}
 
 int main(int argc, char** argv) {
     // Check flags
@@ -39,14 +79,32 @@ int main(int argc, char** argv) {
     }
 
     // TODO size from CLI
-    int height = 4;
-    int occupied_nodes = 0;
-	int num_nodes = NUM_NODES(height);
+    Heap heap;
+    heap.height = 2;
+    heap.occupied_nodes = 0;
+	heap.num_nodes = NUM_NODES(heap.height);
     // Allocate the min-heap
-    uint64_t* heap = (uint64_t*) calloc(num_nodes, sizeof(uint64_t));
-    if (heap == NULL) {
+    heap.data = (uint64_t*) calloc(heap.num_nodes, sizeof(uint64_t));
+    if (heap.data == NULL) {
         exit(EXIT_FAILURE);
     }
+
+    // Use heap
+    insert(&heap, 42);
+    insert(&heap, 5);
+    insert(&heap, 60);
+    insert(&heap, 80);
+    insert(&heap, 90);
+    insert(&heap, 99);
+    insert(&heap, 100);
+    insert(&heap, 101);
+
+    //Print heap
+    int i = 0;
+    for (i = 0; i < heap.num_nodes; i++) {
+        printf("%llu ", heap.data[i]);
+    }
+    printf("\n");
 
 //    char buf[BUF_SIZE];
 //    uint64_t seed = 0;
@@ -56,7 +114,7 @@ int main(int argc, char** argv) {
 //        // UINT64_MAX
 //    }
 
-    free(heap);
+    free(heap.data);
 
     exit(EXIT_SUCCESS);
 }
