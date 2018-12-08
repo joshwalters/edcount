@@ -1,0 +1,24 @@
+2018-12-22
+	- Autotools fixes
+
+2018-12-21
+	- Fix to autotools setup (libmath and function checks)
+
+2018-12-18
+	- Version bumped to 1.0.0.
+	- Change code indent formatting rules.
+	- Added man page generation script.
+	- Added CONTRIBUTING file.
+
+2018-12-17
+	- Added "--version" information to help output.
+	- Bumped dev version to 0.1.2.
+	- Added tests.
+
+2018-12-14
+	- Removed accuracy option, default to max.
+	- Added "--version" option.
+	- Added more help information for bug reports.
+
+2018-12-13
+	- First release, 0.1.0.

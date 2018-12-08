@@ -1,0 +1,9 @@
+MAINTAINER:
+
+Josh Walters <joshwalters@protonmail.com>
+    - Main application implementation
+
+USES CODE FROM:
+
+Zilong Tan (eric.zltan@gmail.com)
+    - Fasthash hashing function

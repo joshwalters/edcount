@@ -1,0 +1,23 @@
+Building
+--------
+
+./bootstrap
+./configure
+make
+
+Testing
+-------
+
+make check
+
+Format code
+-----------
+
+Required `indent` to be installed.
+
+make format
+
+Packaging
+---------
+
+make distcheck
