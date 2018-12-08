@@ -27,6 +27,9 @@ void print_help(char** argv) {
     printf("Usage: %s [FLAGS]...\n", argv[0]);
     printf("\n");
     printf("--help: Print this help message.\n");
+    printf("--size S: Set size of heap.\n");
+    printf("\tWill increase accuracy at the price of memory.\n");
+    printf("\tCreates 2^(s+1)-1 64 bit values.\n");
 }
 
 bool is_flag_present(int argc, char** argv, char* flag) {

@@ -26,6 +26,10 @@
 
 #define BUF_SIZE 1024*10
 
+#define NUM_NODES(height) ((1 << (height + 1)) - 1)
+#define LEFT_CHILD(x) (2 * x + 1)
+#define RIGHT_CHILD(x) (2 * x + 2)
+
 int main(int argc, char** argv) {
     // Check flags
     if (is_flag_present(argc, argv, "--help")) {
@@ -34,13 +38,25 @@ int main(int argc, char** argv) {
         exit(EXIT_SUCCESS);
     }
 
-    char buf[BUF_SIZE];
-    uint64_t seed = 0;
-    while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
-        printf("%llu\n", hash);
-        // UINT64_MAX
+    // TODO size from CLI
+    int height = 4;
+    int occupied_nodes = 0;
+	int num_nodes = NUM_NODES(height);
+    // Allocate the min-heap
+    uint64_t* heap = (uint64_t*) calloc(num_nodes, sizeof(uint64_t));
+    if (heap == NULL) {
+        exit(EXIT_FAILURE);
     }
+
+//    char buf[BUF_SIZE];
+//    uint64_t seed = 0;
+//    while (fgets(buf, BUF_SIZE, stdin) != NULL) {
+//	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
+//        printf("%llu\n", hash);
+//        // UINT64_MAX
+//    }
+
+    free(heap);
 
     exit(EXIT_SUCCESS);
 }
