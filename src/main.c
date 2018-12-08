@@ -19,14 +19,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdint.h>
+
+#include "fasthash.h"
 
 #define BUF_SIZE 1024*10
 
 int main(int argc, char** argv) {
     char buf[BUF_SIZE];
-    ssize_t num_read;
+    uint64_t seed = 0;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-        printf("%s", buf);
+	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
+        printf("%llu\n", hash);
+        // UINT64_MAX
     }
     return EXIT_SUCCESS;
 }
