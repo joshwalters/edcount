@@ -22,10 +22,18 @@
 #include <stdint.h>
 
 #include "fasthash.h"
+#include "cli.h"
 
 #define BUF_SIZE 1024*10
 
 int main(int argc, char** argv) {
+    // Check flags
+    if (is_flag_present(argc, argv, "--help")) {
+        print_header();
+        print_help(argv);
+        exit(EXIT_SUCCESS);
+    }
+
     char buf[BUF_SIZE];
     uint64_t seed = 0;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
@@ -33,5 +41,6 @@ int main(int argc, char** argv) {
         printf("%llu\n", hash);
         // UINT64_MAX
     }
-    return EXIT_SUCCESS;
+
+    exit(EXIT_SUCCESS);
 }
