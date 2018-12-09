@@ -64,10 +64,43 @@ void insert(Heap *heap, uint64_t value) {
             swap(&heap->data[node_pos], &heap->data[PARENT(node_pos)]);
             node_pos = PARENT(node_pos);
         }
-        return;
     } else {
         // Heap is full. If value less than root, replace root and bubble down.
+        if (value < heap->data[0]) {
+            heap->data[0] = value;
+            int node_pos = 0;
+            // Keep moving node down as long as the position is valid
+            while (node_pos < heap->num_nodes) {
+                int left = LEFT_CHILD(node_pos);
+                int right = RIGHT_CHILD(node_pos);
+                if (left >= heap->num_nodes || right >= heap->num_nodes) {
+                    // Done inserting
+                    return;
+                }
+                // Assume left is largest
+                int largest_child = left;
+                if (heap->data[LEFT_CHILD(node_pos)] < heap->data[RIGHT_CHILD(node_pos)]) {
+                    largest_child = RIGHT_CHILD(node_pos);
+                }
+                // Check if current node is smaller than child, if so, swap
+                if (heap->data[node_pos] < heap->data[largest_child]) {
+                    swap(&heap->data[node_pos], &heap->data[largest_child]);
+                    node_pos = largest_child;
+                } else {
+                    // Node is in valid position
+                    return;
+                }
+            }
+        }
     }
+}
+
+uint64_t estimate(Heap *heap) {
+    if (heap->num_nodes > heap->occupied_nodes) {
+        // Have exact count
+        return (uint64_t)heap->occupied_nodes;
+    }
+    return (uint64_t)((heap->num_nodes - 1) / ((double)heap->data[0] / (double)UINT64_MAX));
 }
 
 int main(int argc, char** argv) {
@@ -80,39 +113,44 @@ int main(int argc, char** argv) {
 
     // TODO size from CLI
     Heap heap;
-    heap.height = 2;
+    heap.height = 16;
     heap.occupied_nodes = 0;
 	heap.num_nodes = NUM_NODES(heap.height);
-    // Allocate the min-heap
+    printf("Num nodes: %d\n", heap.num_nodes);
+    // Allocate the max-heap
     heap.data = (uint64_t*) calloc(heap.num_nodes, sizeof(uint64_t));
     if (heap.data == NULL) {
         exit(EXIT_FAILURE);
     }
 
     // Use heap
-    insert(&heap, 42);
-    insert(&heap, 5);
-    insert(&heap, 60);
-    insert(&heap, 80);
-    insert(&heap, 90);
-    insert(&heap, 99);
-    insert(&heap, 100);
-    insert(&heap, 101);
+//    insert(&heap, 42);
+//    insert(&heap, 5);
+//    insert(&heap, 60);
+//    insert(&heap, 80);
+//    insert(&heap, 90);
+//    insert(&heap, 99);
+//    insert(&heap, 1);
+//    insert(&heap, 101);
+//    insert(&heap, 0);
+
+    char buf[BUF_SIZE];
+    uint64_t seed = 0;
+    while (fgets(buf, BUF_SIZE, stdin) != NULL) {
+	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
+        insert(&heap, hash);
+//        printf("%llu\n", hash);
+        // UINT64_MAX
+    }
 
     //Print heap
-    int i = 0;
-    for (i = 0; i < heap.num_nodes; i++) {
-        printf("%llu ", heap.data[i]);
-    }
-    printf("\n");
-
-//    char buf[BUF_SIZE];
-//    uint64_t seed = 0;
-//    while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-//	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
-//        printf("%llu\n", hash);
-//        // UINT64_MAX
+//    int i = 0;
+//    for (i = 0; i < heap.num_nodes; i++) {
+//        printf("%llu ", heap.data[i]);
 //    }
+//    printf("\n");
+
+    printf("Estimate: %llu\n", estimate(&heap));
 
     free(heap.data);
 
