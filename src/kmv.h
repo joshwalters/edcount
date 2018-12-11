@@ -16,44 +16,48 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef EDCOUNT_CLI_H
-#define EDCOUNT_CLI_H
+#ifndef EDCOUNT_KMV_H
+#define EDCOUNT_KMV_H
 
+#include <stdlib.h>
+#include <stdint.h>
 #include <stdbool.h>
-#include <stdio.h>
-#include <string.h>
 
-#define CLI_PARAM_SIZE 1024
-#define VERSION "0.0.1"
-
-/**
- * Print header.
- */
-void print_header();
+#define NUM_NODES(height) ((1 << (height + 1)) - 1)
+#define PARENT(x) ((x - 1) / 2)
+#define LEFT_CHILD(x) (2 * x + 1)
+#define RIGHT_CHILD(x) (2 * x + 2)
 
 /**
- * Print CLI help information.
+ * Store the K-Min Values (max heap).
  */
-void print_help(char** argv);
+struct KMV {
+    uint8_t height;
+    uint8_t cell_size;
+    uint64_t total_inserts;
+    uint64_t num_nodes;
+    uint64_t occupied_nodes;
+    uint64_t* data;
+};
 
 /**
- * Check if a flag is present in the args.
- * @param argc
- * @param argv
- * @param flag search argv for this string
- * @return True if present, false otherwise.
+ * Setup the KMV.
  */
-bool is_flag_present(int argc, char** argv, char* flag);
+bool kmv_init(struct KMV *kmv, uint8_t height);
 
 /**
- * Get value for a flag.
- * @param argc
- * @param argv
- * @param flag search argv for this string
- * @param data used to store the flag value
- * @param size max values to copy to data
- * @return true if found, false if not found.
+ * Free KMV.
  */
-bool get_flag_value(int argc, char** argv, char* flag, char* data, size_t size);
+void kmv_free(struct KMV *kmv);
+
+/**
+ * Insert into the KMV.
+ */
+void kmv_insert(struct KMV *kmv, uint64_t value);
+
+/**
+ * Estimate cardinality.
+ */
+uint64_t kmv_estimate(struct KMV *kmv);
 
 #endif
