@@ -56,7 +56,7 @@ void swap(uint64_t* a, uint64_t* b) {
 void insert(Heap *heap, uint64_t value) {
     if (heap->occupied_nodes < heap->num_nodes) {
         // Heap is not full, insert at end and buble up
-        int node_pos = heap->occupied_nodes;
+        uint32_t node_pos = heap->occupied_nodes;
         heap->data[node_pos] = value;
         heap->occupied_nodes += 1;
         // Now bubble up
@@ -68,17 +68,17 @@ void insert(Heap *heap, uint64_t value) {
         // Heap is full. If value less than root, replace root and bubble down.
         if (value < heap->data[0]) {
             heap->data[0] = value;
-            int node_pos = 0;
+            uint32_t node_pos = 0;
             // Keep moving node down as long as the position is valid
             while (node_pos < heap->num_nodes) {
-                int left = LEFT_CHILD(node_pos);
-                int right = RIGHT_CHILD(node_pos);
+                uint32_t left = LEFT_CHILD(node_pos);
+                uint32_t right = RIGHT_CHILD(node_pos);
                 if (left >= heap->num_nodes || right >= heap->num_nodes) {
                     // Done inserting
                     return;
                 }
                 // Assume left is largest
-                int largest_child = left;
+                uint32_t largest_child = left;
                 if (heap->data[LEFT_CHILD(node_pos)] < heap->data[RIGHT_CHILD(node_pos)]) {
                     largest_child = RIGHT_CHILD(node_pos);
                 }
@@ -113,7 +113,7 @@ int main(int argc, char** argv) {
 
     // TODO size from CLI
     Heap heap;
-    heap.height = 16;
+    heap.height = 23;
     heap.occupied_nodes = 0;
 	heap.num_nodes = NUM_NODES(heap.height);
     printf("Num nodes: %d\n", heap.num_nodes);
@@ -150,7 +150,7 @@ int main(int argc, char** argv) {
 //    }
 //    printf("\n");
 
-    printf("Estimate: %llu\n", estimate(&heap));
+    printf("Estimate: %lu\n", estimate(&heap));
 
     free(heap.data);
 
