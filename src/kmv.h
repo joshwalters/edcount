@@ -56,8 +56,13 @@ void kmv_free(struct KMV *kmv);
 void kmv_insert(struct KMV *kmv, uint64_t value);
 
 /**
- * Estimate cardinality.
+ * Estimate cardinality. Weighted harmonic mean.
  */
-uint64_t kmv_estimate(struct KMV *kmv);
+uint64_t kmv_estimate_whm(struct KMV *kmv);
+
+/**
+ * Estimate cardinality. Harmonic mean.
+ */
+uint64_t kmv_estimate_hm(struct KMV *kmv);
 
 #endif

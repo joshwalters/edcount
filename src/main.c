@@ -45,14 +45,10 @@ int main(int argc, char **argv) {
         kmv_insert(&kmv, hash);
     }
     // Compute estimate distinct count
-    fprintf(stdout, "Estimate: %lu\n", kmv_estimate(&kmv));
+    fprintf(stdout, "Estimate W.H.M.: %lu\n", kmv_estimate_whm(&kmv));
+    fprintf(stdout, "Estimate H.M.: %lu\n", kmv_estimate_hm(&kmv));
     // Print verbose information
     if (cli_args.verbose) {
-        if (kmv.num_nodes > kmv.occupied_nodes) {
-            fprintf(stdout, "Mode: Exact\n");
-        } else {
-            fprintf(stdout, "Mode: Estimate\n");
-        }
         fprintf(stdout, "Total bytes used: %lu\n", kmv.num_nodes * kmv.cell_size);
         fprintf(stdout, "Total inserts: %lu\n", kmv.total_inserts);
     }

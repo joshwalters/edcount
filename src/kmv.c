@@ -68,7 +68,7 @@ void kmv_insert(struct KMV *kmv, uint64_t value) {
             kmv->data[0] = value;
             uint64_t node_pos = 0;
             // Keep moving node down as long as the position is valid
-            while (node_pos < kmv->num_nodes) {
+            while (node_pos < kmv->occupied_nodes) {
                 uint64_t left = LEFT_CHILD(node_pos);
                 uint64_t right = RIGHT_CHILD(node_pos);
                 if (left >= kmv->num_nodes || right >= kmv->num_nodes) {
@@ -93,10 +93,69 @@ void kmv_insert(struct KMV *kmv, uint64_t value) {
     }
 }
 
-uint64_t kmv_estimate(struct KMV *kmv) {
-    if (kmv->num_nodes > kmv->occupied_nodes) {
-        // Have exact count
-        return (uint64_t)kmv->occupied_nodes;
+/**
+ * Helper function, remove root, replace with furthest node, and bubble down.
+ */
+bool remove_root(struct KMV *kmv) {
+    if (kmv->occupied_nodes > 1) {
+        kmv->data[0] = kmv->data[kmv->occupied_nodes - 1];
+        kmv->occupied_nodes -= 1;
+        uint64_t node_pos = 0;
+        // Keep moving node down as long as the position is valid
+        while (node_pos < kmv->occupied_nodes) {
+            uint64_t left = LEFT_CHILD(node_pos);
+            uint64_t right = RIGHT_CHILD(node_pos);
+            if (left >= kmv->num_nodes || right >= kmv->num_nodes) {
+                // Done inserting
+                return true;
+            }
+            // Assume left is largest
+            uint64_t largest_child = left;
+            if (kmv->data[LEFT_CHILD(node_pos)] < kmv->data[RIGHT_CHILD(node_pos)]) {
+                largest_child = RIGHT_CHILD(node_pos);
+            }
+            // Check if current node is smaller than child, if so, swap
+            if (kmv->data[node_pos] < kmv->data[largest_child]) {
+                swap(&kmv->data[node_pos], &kmv->data[largest_child]);
+                node_pos = largest_child;
+            } else {
+                // Node is in valid position
+                return true;
+            }
+        }
+        return true;
     }
-    return (uint64_t)((kmv->num_nodes - 1) / ((double)kmv->data[0] / (double)UINT64_MAX));
+    return false;
+}
+
+uint64_t kmv_estimate_whm(struct KMV *kmv) {
+    // Special single record case
+    if (kmv->occupied_nodes <= 1) {
+        return 1;
+    }
+    double running_total;
+    double weight = 1.0;
+    double weight_total = 0.0;
+    do {
+        double estimate = (double)(kmv->occupied_nodes - 1) / ((double)kmv->data[0] / (double)UINT64_MAX);
+        running_total += weight / estimate;
+        weight_total += weight;
+        weight = (double)(kmv->occupied_nodes) / (double)(kmv->num_nodes);
+    } while(remove_root(kmv) == false);
+    return (uint64_t)(weight_total / running_total);
+}
+
+uint64_t kmv_estimate_hm(struct KMV *kmv) {
+    // Special single record case
+    if (kmv->occupied_nodes <= 1) {
+        return 1;
+    }
+    double running_total = 0;
+    uint64_t count = 0;
+    do {
+        double estimate = (double)(kmv->occupied_nodes - 1) / ((double)kmv->data[0] / (double)UINT64_MAX);
+        running_total += 1 / estimate;
+        count += 1;
+    } while(remove_root(kmv) == false);
+    return (uint64_t)(count / running_total);
 }
