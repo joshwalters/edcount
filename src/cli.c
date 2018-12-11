@@ -24,26 +24,31 @@ void print_header() {
 }
 
 void print_help(char **argv) {
-    printf("Usage: %s [FLAGS]...\n", argv[0]);
+    printf("Usage: %s [ARGS]...\n", argv[0]);
     printf("\n");
-    printf("--help: Print this help message.\n");
-    printf("--size S: Set size of heap.\n");
+    printf("-h, --help\n");
+    printf("\tPrint this help message.\n\n");
+    printf("-v, --verbose\n");
+    printf("\tPrint additional information.\n\n");
+    printf("-a, --accuracy SIZE\n");
     printf("\tWill increase accuracy at the price of memory.\n");
-    printf("\tCreates 2^(s+1)-1 64 bit values.\n");
+    printf("\tDefault is 16.\n\n");
 }
 
-bool is_flag_present(int argc, char **argv, char* flag) {
+bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag) {
     for(int i = 0; i < argc; i++) {
-        if (strcmp(argv[i], flag) == 0) {
+        if (strcmp(argv[i], short_flag) == 0 ||
+            strcmp(argv[i], long_flag) == 0) {
             return true;
         }
     }
     return false;
 }
 
-bool get_flag_value(int argc, char **argv, char* flag, char* data, size_t size) {
+bool get_flag_value(int argc, char **argv, char *short_flag, char *long_flag, char *data, size_t size) {
     for(int i = 0; i < argc; i++) {
-        if (strcmp(argv[i], flag) == 0) {
+        if (strcmp(argv[i], short_flag) == 0 ||
+            strcmp(argv[i], long_flag) == 0) {
             // Check if flag is last argument
             if ((i + 1) >= argc) {
                 return false;
@@ -64,13 +69,13 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     cli_args->accuracy = 16;
     cli_args->verbose = false;
     // Help
-    if (is_flag_present(argc, argv, "--help")) {
+    if (is_flag_present(argc, argv, "-h", "--help")) {
         print_header();
         print_help(argv);
         exit(EXIT_SUCCESS);
     }
     // Accuracy.
-    if (get_flag_value(argc, argv, "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
+    if (get_flag_value(argc, argv, "-a", "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
         char* end;
         cli_args->accuracy = (uint8_t)strtol(cli_buf, &end, 10);
         if (*end != '\0' || cli_args->accuracy > 25) {
@@ -82,7 +87,7 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
         }
     }
     // Verbose.
-    if (is_flag_present(argc, argv, "--verbose")) {
+    if (is_flag_present(argc, argv, "-v", "--verbose")) {
         cli_args->verbose = true;
     }
 }

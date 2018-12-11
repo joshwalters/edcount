@@ -50,22 +50,24 @@ void print_help(char **argv);
  * Check if a flag is present in the args.
  * @param argc
  * @param argv
- * @param flag search argv for this string
+ * @param short_flat search argv for this string
+ * @param long_flag search argv for this string
  * @return True if present, false otherwise.
  */
-bool is_flag_present(int argc, char **argv, char* flag);
+bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag);
 
 /**
  * Get value for a flag.
  * @param argc
  * @param argv
- * @param flag search argv for this string
+ * @param short_flat search argv for this string
+ * @param long_flag search argv for this string
  * @param data used to store the flag value
  * @param size max values to copy to data
  * @return true if found, false if not found.
  */
-bool get_flag_value(int argc, char **argv, char* flag, char *data, size_t size);
-
+bool get_flag_value(int argc, char **argv, char *short_flag,
+                    char *long_flag, char *data, size_t size);
 
 /**
  * Paese CLI arguments.

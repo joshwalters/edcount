@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     char buf[BUF_SIZE];
     uint64_t seed = 0;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-	    uint64_t hash = fasthash64(buf, strlen(buf), seed);
+        uint64_t hash = fasthash64(buf, strlen(buf), seed);
         kmv_insert(&kmv, hash);
     }
     // Compute estimate distinct count
