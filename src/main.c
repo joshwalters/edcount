@@ -27,35 +27,13 @@
 
 #define BUF_SIZE 1024*10
 
-int main(int argc, char** argv) {
-    // Check flags
-    char cli_buf[CLI_PARAM_SIZE];
-    // Help
-    if (is_flag_present(argc, argv, "--help")) {
-        print_header();
-        print_help(argv);
-        exit(EXIT_SUCCESS);
-    }
-    // Accuracy. Default = 16
-    uint8_t accuracy = 16;
-    if (get_flag_value(argc, argv, "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
-        char* end;
-        accuracy = (uint8_t)strtol(cli_buf, &end, 10);
-        if (*end != '\0' || accuracy > 25) {
-            fprintf(stderr, "Invalid accuracy '%s'. Should be between '0' and '25'.\n\n", cli_buf);
-            print_header();
-            print_help(argv);
-            exit(EXIT_FAILURE);
-        }
-    }
-    // Verbose. Default = false
-    bool verbose = false;
-    if (is_flag_present(argc, argv, "--verbose")) {
-        verbose = true;
-    }
+int main(int argc, char **argv) {
+    // Parse the CLI arguments
+    struct CLIArgs cli_args;
+    parse_args(argc, argv, &cli_args);
     // Create the KMV
     struct KMV kmv;
-    if(kmv_init(&kmv, accuracy) == false) {
+    if(kmv_init(&kmv, cli_args.accuracy) == false) {
         fprintf(stderr, "Error allocating memory.\n");
         exit(EXIT_FAILURE);
     }
@@ -69,7 +47,7 @@ int main(int argc, char** argv) {
     // Compute estimate distinct count
     fprintf(stdout, "Estimate: %lu\n", kmv_estimate(&kmv));
     // Print verbose information
-    if (verbose) {
+    if (cli_args.verbose) {
         if (kmv.num_nodes > kmv.occupied_nodes) {
             fprintf(stdout, "Mode: Exact\n");
         } else {

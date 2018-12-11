@@ -23,7 +23,7 @@ void print_header() {
     printf("\n");
 }
 
-void print_help(char** argv) {
+void print_help(char **argv) {
     printf("Usage: %s [FLAGS]...\n", argv[0]);
     printf("\n");
     printf("--help: Print this help message.\n");
@@ -32,7 +32,7 @@ void print_help(char** argv) {
     printf("\tCreates 2^(s+1)-1 64 bit values.\n");
 }
 
-bool is_flag_present(int argc, char** argv, char* flag) {
+bool is_flag_present(int argc, char **argv, char* flag) {
     for(int i = 0; i < argc; i++) {
         if (strcmp(argv[i], flag) == 0) {
             return true;
@@ -41,7 +41,7 @@ bool is_flag_present(int argc, char** argv, char* flag) {
     return false;
 }
 
-bool get_flag_value(int argc, char** argv, char* flag, char* data, size_t size) {
+bool get_flag_value(int argc, char **argv, char* flag, char* data, size_t size) {
     for(int i = 0; i < argc; i++) {
         if (strcmp(argv[i], flag) == 0) {
             // Check if flag is last argument
@@ -56,4 +56,33 @@ bool get_flag_value(int argc, char** argv, char* flag, char* data, size_t size) 
         }
     }
     return false;
+}
+
+void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
+    char cli_buf[CLI_PARAM_SIZE];
+    // Default values
+    cli_args->accuracy = 16;
+    cli_args->verbose = false;
+    // Help
+    if (is_flag_present(argc, argv, "--help")) {
+        print_header();
+        print_help(argv);
+        exit(EXIT_SUCCESS);
+    }
+    // Accuracy.
+    if (get_flag_value(argc, argv, "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
+        char* end;
+        cli_args->accuracy = (uint8_t)strtol(cli_buf, &end, 10);
+        if (*end != '\0' || cli_args->accuracy > 25) {
+            fprintf(stderr, "Invalid accuracy '%s'. "
+                            "Should be between '0' and '25'.\n\n", cli_buf);
+            print_header();
+            print_help(argv);
+            exit(EXIT_FAILURE);
+        }
+    }
+    // Verbose.
+    if (is_flag_present(argc, argv, "--verbose")) {
+        cli_args->verbose = true;
+    }
 }

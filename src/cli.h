@@ -20,11 +20,21 @@
 #define EDCOUNT_CLI_H
 
 #include <stdbool.h>
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdint.h>
 
 #define CLI_PARAM_SIZE 1024
 #define VERSION "0.0.1"
+
+/**
+ * Store CLI arguments.
+ */
+struct CLIArgs {
+    uint8_t accuracy;
+    bool verbose;
+};
 
 /**
  * Print header.
@@ -34,7 +44,7 @@ void print_header();
 /**
  * Print CLI help information.
  */
-void print_help(char** argv);
+void print_help(char **argv);
 
 /**
  * Check if a flag is present in the args.
@@ -43,7 +53,7 @@ void print_help(char** argv);
  * @param flag search argv for this string
  * @return True if present, false otherwise.
  */
-bool is_flag_present(int argc, char** argv, char* flag);
+bool is_flag_present(int argc, char **argv, char* flag);
 
 /**
  * Get value for a flag.
@@ -54,6 +64,12 @@ bool is_flag_present(int argc, char** argv, char* flag);
  * @param size max values to copy to data
  * @return true if found, false if not found.
  */
-bool get_flag_value(int argc, char** argv, char* flag, char* data, size_t size);
+bool get_flag_value(int argc, char **argv, char* flag, char *data, size_t size);
+
+
+/**
+ * Paese CLI arguments.
+ */
+void parse_args(int argc, char **argv, struct CLIArgs *cli_args);
 
 #endif
