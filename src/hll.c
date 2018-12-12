@@ -40,6 +40,7 @@ bool hll_init(struct HLL *hll, uint8_t size) {
     }
     hll->size = size;
     hll->num_counters = 1 << size;
+    hll->num_inserts = 0;
     hll->counter = calloc(hll->num_counters, sizeof(uint8_t));
     if (hll->counter == NULL) {
         return false;
