@@ -31,8 +31,9 @@ void print_help(char **argv) {
     printf("-v, --verbose\n");
     printf("\tPrint additional information.\n\n");
     printf("-a, --accuracy SIZE\n");
-    printf("\tWill increase accuracy at the price of memory.\n");
-    printf("\tDefault is 16.\n\n");
+    printf("\tWill increase accuracy at the cost of more memory.\n");
+    printf("\tNeeds to be in range [4, 20].\n");
+    printf("\tDefault is 10.\n\n");
 }
 
 bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag) {
@@ -66,7 +67,7 @@ bool get_flag_value(int argc, char **argv, char *short_flag, char *long_flag, ch
 void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     char cli_buf[CLI_PARAM_SIZE];
     // Default values
-    cli_args->accuracy = 16;
+    cli_args->accuracy = 10;
     cli_args->verbose = false;
     // Help
     if (is_flag_present(argc, argv, "-h", "--help")) {
@@ -78,9 +79,9 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     if (get_flag_value(argc, argv, "-a", "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
         char* end;
         cli_args->accuracy = (uint8_t)strtol(cli_buf, &end, 10);
-        if (*end != '\0' || cli_args->accuracy > 25) {
+        if (*end != '\0' || cli_args->accuracy > 20) {
             fprintf(stderr, "Invalid accuracy '%s'. "
-                            "Should be between '0' and '25'.\n\n", cli_buf);
+                            "Should be between '4' and '20'.\n\n", cli_buf);
             print_header();
             print_help(argv);
             exit(EXIT_FAILURE);

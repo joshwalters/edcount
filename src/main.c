@@ -23,7 +23,7 @@
 
 #include "fasthash.h"
 #include "cli.h"
-#include "kmv.h"
+#include "hll.h"
 
 #define BUF_SIZE 1024*10
 
@@ -31,9 +31,9 @@ int main(int argc, char **argv) {
     // Parse the CLI arguments
     struct CLIArgs cli_args;
     parse_args(argc, argv, &cli_args);
-    // Create the KMV
-    struct KMV kmv;
-    if(kmv_init(&kmv, cli_args.accuracy) == false) {
+	// Create the HLL
+    struct HLL hll;
+    if (hll_init(&hll, cli_args.accuracy) == false) {
         fprintf(stderr, "Error allocating memory.\n");
         exit(EXIT_FAILURE);
     }
@@ -42,17 +42,22 @@ int main(int argc, char **argv) {
     uint64_t seed = 0;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
         uint64_t hash = fasthash64(buf, strlen(buf), seed);
-        kmv_insert(&kmv, hash);
+        hll_insert(&hll, hash);
     }
     // Compute estimate distinct count
-    fprintf(stdout, "Estimate W.H.M.: %lu\n", kmv_estimate_whm(&kmv));
-    fprintf(stdout, "Estimate H.M.: %lu\n", kmv_estimate_hm(&kmv));
+    uint64_t estimate = hll_estimate(&hll);
+    fprintf(stdout, "Estimate: %lu\n", estimate);
     // Print verbose information
     if (cli_args.verbose) {
-        fprintf(stdout, "Total bytes used: %lu\n", kmv.num_nodes * kmv.cell_size);
-        fprintf(stdout, "Total inserts: %lu\n", kmv.total_inserts);
+        fprintf(stdout, "Bytes used: %lu\n", sizeof(uint8_t) * hll.num_counters);
+        fprintf(stdout, "Number of inserts: %lu\n", hll.num_inserts);
+        double sigma = 1.05 / sqrt((double)hll.num_counters);
+        fprintf(stdout, "Sigma: %f%%\n", sigma * 100);
+        fprintf(stdout, "65%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * sigma), estimate + (uint64_t)(estimate * sigma));
+        fprintf(stdout, "95%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 2 * sigma), estimate + (uint64_t)(estimate * 2 * sigma));
+        fprintf(stdout, "95%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 3 * sigma), estimate + (uint64_t)(estimate * 3 * sigma));
     }
     // Free memory
-    kmv_free(&kmv);
+    hll_free(&hll);
     exit(EXIT_SUCCESS);
 }
