@@ -55,7 +55,7 @@ int main(int argc, char **argv) {
         fprintf(stdout, "Sigma: %f%%\n", sigma * 100);
         fprintf(stdout, "65%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * sigma), estimate + (uint64_t)(estimate * sigma));
         fprintf(stdout, "95%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 2 * sigma), estimate + (uint64_t)(estimate * 2 * sigma));
-        fprintf(stdout, "95%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 3 * sigma), estimate + (uint64_t)(estimate * 3 * sigma));
+        fprintf(stdout, "99%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 3 * sigma), estimate + (uint64_t)(estimate * 3 * sigma));
     }
     // Free memory
     hll_free(&hll);
