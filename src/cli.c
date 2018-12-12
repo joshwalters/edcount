@@ -79,7 +79,7 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     if (get_flag_value(argc, argv, "-a", "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
         char* end;
         cli_args->accuracy = (uint8_t)strtol(cli_buf, &end, 10);
-        if (*end != '\0' || cli_args->accuracy > 20) {
+        if (*end != '\0' || cli_args->accuracy > 20 || cli_args->accuracy < 4) {
             fprintf(stderr, "Invalid accuracy '%s'. "
                             "Should be between '4' and '20'.\n\n", cli_buf);
             print_header();
