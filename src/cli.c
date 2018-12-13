@@ -33,7 +33,7 @@ void print_help(char **argv) {
     printf("-a, --accuracy SIZE\n");
     printf("\tWill increase accuracy at the cost of more memory.\n");
     printf("\tNeeds to be in range [4, 20].\n");
-    printf("\tDefault is 10.\n\n");
+    printf("\tDefault is 20.\n\n");
 }
 
 bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag) {
@@ -67,7 +67,7 @@ bool get_flag_value(int argc, char **argv, char *short_flag, char *long_flag, ch
 void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     char cli_buf[CLI_PARAM_SIZE];
     // Default values
-    cli_args->accuracy = 10;
+    cli_args->accuracy = 20;
     cli_args->verbose = false;
     // Help
     if (is_flag_present(argc, argv, "-h", "--help")) {

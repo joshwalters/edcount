@@ -33,7 +33,7 @@ int main(int argc, char **argv) {
     parse_args(argc, argv, &cli_args);
 	// Create the HLL
     struct HLL hll;
-    if (hll_init(&hll, cli_args.accuracy) == false) {
+    if (hll_init(&hll, cli_args.accuracy) != 0) {
         fprintf(stderr, "Error allocating memory.\n");
         exit(EXIT_FAILURE);
     }
@@ -46,16 +46,23 @@ int main(int argc, char **argv) {
     }
     // Compute estimate distinct count
     uint64_t estimate = hll_estimate(&hll);
-    fprintf(stdout, "Estimate: %lu\n", estimate);
+    fprintf(stdout, "Unique Estimate: %lu\n", estimate);
     // Print verbose information
     if (cli_args.verbose) {
-        fprintf(stdout, "Bytes used: %lu\n", sizeof(uint8_t) * hll.num_counters);
-        fprintf(stdout, "Number of inserts: %lu\n", hll.num_inserts);
-        double sigma = 1.05 / sqrt((double)hll.num_counters);
+        fprintf(stdout, "Bytes used: %lu\n",
+                sizeof(uint8_t) * hll.num_counters);
+        fprintf(stdout, "Number of total inserts: %lu\n", hll.num_inserts);
+        double sigma = hll_sigma(&hll);
         fprintf(stdout, "Sigma: %f%%\n", sigma * 100);
-        fprintf(stdout, "65%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * sigma), estimate + (uint64_t)(estimate * sigma));
-        fprintf(stdout, "95%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 2 * sigma), estimate + (uint64_t)(estimate * 2 * sigma));
-        fprintf(stdout, "99%% chance within range: %lu to %lu\n", estimate - (uint64_t)(estimate * 3 * sigma), estimate + (uint64_t)(estimate * 3 * sigma));
+        fprintf(stdout, "65%% chance within range: %lu to %lu\n",
+                estimate - (uint64_t)(estimate * sigma),
+                estimate + (uint64_t)(estimate * sigma));
+        fprintf(stdout, "95%% chance within range: %lu to %lu\n",
+                estimate - (uint64_t)(estimate * 2 * sigma),
+                estimate + (uint64_t)(estimate * 2 * sigma));
+        fprintf(stdout, "99%% chance within range: %lu to %lu\n",
+                estimate - (uint64_t)(estimate * 3 * sigma),
+                estimate + (uint64_t)(estimate * 3 * sigma));
     }
     // Free memory
     hll_free(&hll);

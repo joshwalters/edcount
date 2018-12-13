@@ -34,18 +34,18 @@ uint8_t count_trailing_zeros(uint64_t x) {
     #endif
 }
 
-bool hll_init(struct HLL *hll, uint8_t size) {
+int hll_init(struct HLL *hll, uint8_t size) {
     if (size < 4 || size > 20) {
-        return false;
+        return 1;
     }
     hll->size = size;
     hll->num_counters = 1 << size;
     hll->num_inserts = 0;
     hll->counter = calloc(hll->num_counters, sizeof(uint8_t));
     if (hll->counter == NULL) {
-        return false;
+        return 1;
     }
-    return true;
+    return 0;
 }
 
 void hll_free(struct HLL *hll) {
@@ -110,18 +110,22 @@ void hll_copy_and_wrap(struct HLL *dest, struct HLL *src) {
     }
 }
 
-bool hll_union(struct HLL *dest, struct HLL *first, struct HLL *second) {
+int hll_union(struct HLL *dest, struct HLL *first, struct HLL *second) {
     if (first->counter == NULL || second->counter == NULL) {
-        return false;
+        return 1;
     }
     uint8_t min_size = first->size;
     if (second->size < min_size) {
         min_size = second->size;
     }
-    if (hll_init(dest, min_size) == false) {
-        return false;
+    if (hll_init(dest, min_size) != 0) {
+        return 1;
     }
     hll_copy_and_wrap(dest, first);
     hll_copy_and_wrap(dest, second);
-    return true;
+    return 0;
+}
+
+double hll_sigma(struct HLL *hll) {
+    return 1.04 / sqrt((double)hll->num_counters);
 }
