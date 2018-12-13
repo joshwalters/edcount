@@ -18,22 +18,22 @@
 
 #include "cli.h"
 
-void print_header() {
-    printf("TODO\n");
-    printf("\n");
-}
-
 void print_help(char **argv) {
-    printf("Usage: %s [ARGS]...\n", argv[0]);
+    printf("Usage: %s [OPTION]...\n", argv[0]);
+    printf("Estimate distinct count of values from standard input.\n");
+    printf("Value is considered terminated with a newline.\n");
     printf("\n");
-    printf("-h, --help\n");
-    printf("\tPrint this help message.\n\n");
-    printf("-v, --verbose\n");
-    printf("\tPrint additional information.\n\n");
-    printf("-a, --accuracy SIZE\n");
-    printf("\tWill increase accuracy at the cost of more memory.\n");
-    printf("\tNeeds to be in range [4, 20].\n");
-    printf("\tDefault is 20.\n\n");
+    printf("-h, --help            Print this help message.\n");
+    printf("-v, --verbose         Print additional information.\n");
+    printf("-a, --accuracy SIZE   Higher value increases accuracy at\n");
+    printf("                      the cost of memory usage.\n");
+    printf("                      Must be value in range [4, 20].\n");
+    printf("                      Default value is 20.\n");
+    printf("                      SIZE   Error   Bytes Used\n");
+    printf("                         4   26.0%%           16\n");
+    printf("                        10    3.2%%         1024\n");
+    printf("                        15    0.6%%        32768\n");
+    printf("                        20    0.1%%      1048576\n");
 }
 
 bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag) {
@@ -71,7 +71,6 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     cli_args->verbose = false;
     // Help
     if (is_flag_present(argc, argv, "-h", "--help")) {
-        print_header();
         print_help(argv);
         exit(EXIT_SUCCESS);
     }
@@ -82,7 +81,6 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
         if (*end != '\0' || cli_args->accuracy > 20 || cli_args->accuracy < 4) {
             fprintf(stderr, "Invalid accuracy '%s'. "
                             "Should be between '4' and '20'.\n\n", cli_buf);
-            print_header();
             print_help(argv);
             exit(EXIT_FAILURE);
         }
