@@ -26,51 +26,51 @@
 #include <stdint.h>
 
 #define CLI_PARAM_SIZE 64
-#define VERSION "0.0.1"
 
 /**
  * Store CLI arguments.
  */
 struct CLIArgs {
-    uint8_t accuracy;
+    // Accuracy to use
+    uint8_t accuracy
+    // Weather to print verbose information
     bool verbose;
 };
 
 /**
- * Print header.
- */
-void print_header();
-
-/**
  * Print CLI help information.
+ * @param argv Argument strings
  */
 void print_help(char **argv);
 
 /**
  * Check if a flag is present in the args.
- * @param argc
- * @param argv
- * @param short_flat search argv for this string
- * @param long_flag search argv for this string
- * @return True if present, false otherwise.
+ * @param argc Number of arguments.
+ * @param argv Argument strings.
+ * @param short_flag Search argv for this string.
+ * @param long_flag Search argv for this string.
+ * @return True if flag present, false otherwise
  */
 bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag);
 
 /**
  * Get value for a flag.
- * @param argc
- * @param argv
- * @param short_flat search argv for this string
- * @param long_flag search argv for this string
- * @param data used to store the flag value
- * @param size max values to copy to data
- * @return true if found, false if not found.
+ * @param argc Number of arguments.
+ * @param argv Argument strings.
+ * @param short_flag Search argv for this string.
+ * @param long_flag Search argv for this string.
+ * @param data Used to store the flag value.
+ * @param size Max values to copy to data.
+ * @return True if flag and value present, false otherwise.
  */
 bool get_flag_value(int argc, char **argv, char *short_flag,
                     char *long_flag, char *data, size_t size);
 
 /**
- * Paese CLI arguments.
+ * Parse CLI arguments into CLIArg struct.
+ * @param argc Number of arguments.
+ * @param argv Argument strings.
+ * @param cli_args Used to store arguments.
  */
 void parse_args(int argc, char **argv, struct CLIArgs *cli_args);
 
