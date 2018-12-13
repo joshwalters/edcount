@@ -36,18 +36,33 @@ void print_help(char **argv) {
     printf("                        20    0.1%%      1048576\n");
 }
 
-bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag) {
+bool is_flag_present(int argc, char **argv,
+                     char *short_flag, char *long_flag) {
     for(int i = 0; i < argc; i++) {
+        // Skip nulled (already processed) args
+        if (argv[i] == NULL) {
+            continue;
+        }
+        // Check if flag matches
         if (strcmp(argv[i], short_flag) == 0 ||
             strcmp(argv[i], long_flag) == 0) {
+            // Null out the value, for enforcement of unknown flags
+            argv[i] = NULL;
             return true;
         }
     }
     return false;
 }
 
-bool get_flag_value(int argc, char **argv, char *short_flag, char *long_flag, char *data, size_t size) {
+bool get_flag_value(int argc, char **argv,
+                    char *short_flag, char *long_flag,
+                    char *data, size_t size) {
     for(int i = 0; i < argc; i++) {
+        // Skip nulled (already processed) args
+        if (argv[i] == NULL) {
+            continue;
+        }
+        // Check if flag matches
         if (strcmp(argv[i], short_flag) == 0 ||
             strcmp(argv[i], long_flag) == 0) {
             // Check if flag is last argument
@@ -58,6 +73,9 @@ bool get_flag_value(int argc, char **argv, char *short_flag, char *long_flag, ch
             strncpy(data, argv[i + 1], size);
             // Manually null character to be safe
             data[size - 1] = '\0';
+            // Null out the flag and value for enforcement of unknown flags
+            argv[i] = NULL;
+            argv[i + 1] = NULL;
             return true;
         }
     }
@@ -69,24 +87,34 @@ void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
     // Default values
     cli_args->accuracy = 20;
     cli_args->verbose = false;
-    // Help
+    // Help flag
     if (is_flag_present(argc, argv, "-h", "--help")) {
         print_help(argv);
         exit(EXIT_SUCCESS);
     }
-    // Accuracy.
-    if (get_flag_value(argc, argv, "-a", "--accuracy", cli_buf, CLI_PARAM_SIZE)) {
+    // Accuracy flag
+    if (get_flag_value(argc, argv, "-a", "--accuracy",
+                       cli_buf, CLI_PARAM_SIZE)) {
         char* end;
         cli_args->accuracy = (uint8_t)strtol(cli_buf, &end, 10);
-        if (*end != '\0' || cli_args->accuracy > 20 || cli_args->accuracy < 4) {
+        if (*end != '\0' || cli_args->accuracy < 4 || cli_args->accuracy > 20) {
             fprintf(stderr, "Invalid accuracy '%s'. "
                             "Should be between '4' and '20'.\n\n", cli_buf);
             print_help(argv);
             exit(EXIT_FAILURE);
         }
     }
-    // Verbose.
+    // Verbose flag
     if (is_flag_present(argc, argv, "-v", "--verbose")) {
         cli_args->verbose = true;
+    }
+    // Check for unknown flags, report to user and fail if found
+    int i;
+    for (i = 1; i < argc; i++) {
+        if (argv[i] != NULL) {
+            fprintf(stderr, "Invalid argument '%s'\n\n", argv[i]);
+            print_help(argv);
+            exit(EXIT_FAILURE);
+        }
     }
 }

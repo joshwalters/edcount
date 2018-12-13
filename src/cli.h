@@ -25,7 +25,7 @@
 #include <string.h>
 #include <stdint.h>
 
-#define CLI_PARAM_SIZE 1024
+#define CLI_PARAM_SIZE 64
 #define VERSION "0.0.1"
 
 /**
