@@ -32,7 +32,7 @@
  */
 struct CLIArgs {
     // Accuracy to use
-    uint8_t accuracy
+    uint8_t accuracy;
     // Weather to print verbose information
     bool verbose;
 };
