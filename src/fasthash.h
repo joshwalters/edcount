@@ -2,6 +2,7 @@
    The MIT License
 
    Copyright (C) 2012 Zilong Tan (eric.zltan@gmail.com)
+   Copyright (C) 2018 Harold Freeman
 
    Permission is hereby granted, free of charge, to any person
    obtaining a copy of this software and associated documentation
@@ -31,10 +32,11 @@
 #include <stdio.h>
 
 /**
- * fasthash64 - 64-bit implementation of fasthash
- * @buf:  data buffer
- * @len:  data size
- * @seed: the seed
+ * 64-bit implementation of fasthash.
+ * @param buf Data buffer.
+ * @param len Data size.
+ * @param seed The seed.
+ * @return Hash value.
  */
 uint64_t fasthash64(const void *buf, size_t len, uint64_t seed);
 
