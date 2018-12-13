@@ -26,7 +26,8 @@
 #include "cli.h"
 #include "hll.h"
 
-#define BUF_SIZE 1024*10
+#define BUF_SIZE 1024
+#define STARTING_SEED 2796203
 
 int main(int argc, char **argv) {
     // Capture start time
@@ -43,10 +44,18 @@ int main(int argc, char **argv) {
     }
     // Read STDIN
     char buf[BUF_SIZE];
-    uint64_t seed = 0;
+    // Used for accumulating hashes when line is longer than BUF_SIZE
+    uint64_t seed = STARTING_SEED;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-        uint64_t hash = fasthash64(buf, strlen(buf), seed);
-        hll_insert(&hll, hash);
+        uint64_t hash = fasthash64(buf, BUF_SIZE, seed);
+        // Check if fgets read whole string
+        if (strchr(buf, '\n') != NULL) {
+            hll_insert(&hll, hash);
+            seed = STARTING_SEED;
+        } else {
+            // Did not contain newline, need to continue hashing this line
+            seed = hash;
+        }
     }
     // Compute estimate distinct count
     uint64_t estimate = hll_estimate(&hll);
@@ -58,7 +67,8 @@ int main(int argc, char **argv) {
         fprintf(stdout, "Number of total inserts: %lu\n", hll.num_inserts);
         time_t end_time;
         time(&end_time);
-        fprintf(stdout, "Number of seconds to process: %d\n", (int)difftime(end_time, start_time));
+        fprintf(stdout, "Number of seconds to process: %d\n",
+                (int)difftime(end_time, start_time));
         double sigma = hll_sigma(&hll);
         fprintf(stdout, "Sigma: %f%%\n", sigma * 100);
         fprintf(stdout, "65%% chance within range: %lu to %lu\n",

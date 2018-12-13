@@ -23,12 +23,12 @@ sys	0m1.040s
 Using `edcount`:
 ```
 $ seq 1 10000000 | shuf | edcount
-Unique Estimate: 9991297
+Unique Estimate: 10003339
 
 $ time $(seq 1 10000000 | shuf | edcount > /dev/null)
-real	0m2.852s
-user	0m3.636s
-sys	0m0.428s
+real	0m5.713s
+user	0m6.940s
+sys	0m0.432s
 ```
 
 ## Compiling
