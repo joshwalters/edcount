@@ -98,34 +98,6 @@ uint64_t hll_estimate(struct HLL *hll) {
     return (uint64_t)estimate;
 }
 
-void hll_copy_and_wrap(struct HLL *dest, struct HLL *src) {
-    uint64_t dest_i = 0;
-    for (uint64_t src_i = 0; src_i < src->num_counters; src_i++, dest_i++) {
-        if (dest_i >= dest->num_counters) {
-            dest_i = 0;
-        }
-        if (dest->counter[dest_i] < src->counter[src_i]) {
-            dest->counter[dest_i] = src->counter[src_i];
-        }
-    }
-}
-
-int hll_union(struct HLL *dest, struct HLL *first, struct HLL *second) {
-    if (first->counter == NULL || second->counter == NULL) {
-        return 1;
-    }
-    uint8_t min_size = first->size;
-    if (second->size < min_size) {
-        min_size = second->size;
-    }
-    if (hll_init(dest, min_size) != 0) {
-        return 1;
-    }
-    hll_copy_and_wrap(dest, first);
-    hll_copy_and_wrap(dest, second);
-    return 0;
-}
-
 double hll_sigma(struct HLL *hll) {
     return 1.04 / sqrt((double)hll->num_counters);
 }

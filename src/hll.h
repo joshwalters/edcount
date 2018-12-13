@@ -37,7 +37,6 @@ int hll_init(struct HLL *hll, uint8_t size);
 void hll_free(struct HLL *hll);
 void hll_insert(struct HLL *hll, uint64_t hash);
 uint64_t hll_estimate(struct HLL *hll);
-int hll_union(struct HLL *dest, struct HLL *first, struct HLL *second);
 double hll_sigma(struct HLL *hll);
 
 #endif
