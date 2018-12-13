@@ -26,9 +26,9 @@ void print_help(char **argv) {
     printf("-h, --help            Print this help message.\n");
     printf("-v, --verbose         Print additional information.\n");
     printf("-a, --accuracy SIZE   Higher value increases accuracy at\n");
-    printf("                      the cost of memory usage.\n");
-    printf("                      Must be value in range [4, 20].\n");
-    printf("                      Default value is 20.\n");
+    printf("                      the cost of memory usage. Must be\n");
+    printf("                      in range of [4, 20]. Default value\n");
+    printf("                      is 20.\n");
     printf("                      SIZE   Error   Bytes Used\n");
     printf("                         4   26.0%%           16\n");
     printf("                        10    3.2%%         1024\n");
