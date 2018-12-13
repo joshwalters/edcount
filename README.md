@@ -1,4 +1,4 @@
-# edcount
+# `edcount`
 
 Estimate distinct count of values from standard input.
 
