@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     // Used for accumulating hashes when line is longer than BUF_SIZE
     uint64_t seed = STARTING_SEED;
     while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-        uint64_t hash = fasthash64(buf, BUF_SIZE, seed);
+        uint64_t hash = fasthash64(buf, strlen(buf), seed);
         // Check if fgets read whole string
         if (strchr(buf, '\n') != NULL) {
             hll_insert(&hll, hash);
