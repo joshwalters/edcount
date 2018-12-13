@@ -1,17 +1,46 @@
 # edcount
 
-## Building
+Estimate distinct count of values from standard input.
 
-The following are required to build:
+`edcount` provides a very fast way to perform unique count estimates on the
+command line.
+
+## Examples
+
+Counting 10 million unique records:
+
+Using `sort` and `wc`:
 ```
-cmake
-make
-gcc
+$ seq 1 10000000 | shuf | sort -u | wc -l
+10000000
+
+$ time $(seq 1 10000000 | shuf | sort -u | wc -l > /dev/null)
+real	0m46.034s
+user	0m45.928s
+sys	0m1.040s
 ```
 
-To build run:
+Using `edcount`:
 ```
-make
+$ seq 1 10000000 | shuf | edcount
+Unique Estimate: 9991297
+
+$ time $(seq 1 10000000 | shuf | edcount > /dev/null)
+real	0m2.852s
+user	0m3.636s
+sys	0m0.428s
 ```
-This will build in the `build` folder. You can find the executable in the
-`build/bin` folder.
+
+## Compiling
+
+### Requirements
+
+`cmake`, `make`, `gcc`
+
+### Building
+
+Run `make`
+
+## License
+
+`edcount` is licensed under GPLv3. See the `LICENSE` file for more information.

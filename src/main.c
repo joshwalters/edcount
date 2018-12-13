@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
+#include <time.h>
 
 #include "fasthash.h"
 #include "cli.h"
@@ -28,10 +29,13 @@
 #define BUF_SIZE 1024*10
 
 int main(int argc, char **argv) {
+    // Capture start time
+    time_t start_time;
+    time(&start_time);
     // Parse the CLI arguments
     struct CLIArgs cli_args;
     parse_args(argc, argv, &cli_args);
-	// Create the HLL
+    // Create the HLL
     struct HLL hll;
     if (hll_init(&hll, cli_args.accuracy) != 0) {
         fprintf(stderr, "Error allocating memory.\n");
@@ -52,6 +56,9 @@ int main(int argc, char **argv) {
         fprintf(stdout, "Bytes used: %lu\n",
                 sizeof(uint8_t) * hll.num_counters);
         fprintf(stdout, "Number of total inserts: %lu\n", hll.num_inserts);
+        time_t end_time;
+        time(&end_time);
+        fprintf(stdout, "Number of seconds to process: %d\n", (int)difftime(end_time, start_time));
         double sigma = hll_sigma(&hll);
         fprintf(stdout, "Sigma: %f%%\n", sigma * 100);
         fprintf(stdout, "65%% chance within range: %lu to %lu\n",
