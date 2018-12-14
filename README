@@ -2,10 +2,8 @@ edcount
 -------
 
 Estimate distinct count of values from standard input. Provides a very fast way
-to perform unique count estimates on the command line. Value is considered
+to perform unique count estimates on the command line. A value is considered
 terminated with a newline.
-
-User HyperLogLog to estimate the distinct elements.
 
 Benchmark
 ---------
@@ -18,39 +16,10 @@ real	0m46.034s
 user	0m45.928s
 sys	0m1.040s
 
-Counting 10 million unique records with edcount
+Counting 10 million unique records with edcount:
 
 $ seq 1 10000000 | shuf | edcount
 Unique Estimate: 10003339
 real	0m5.713s
 user	0m6.940s
 sys	0m0.432s
-
-Installing
-----------
-
-./configure
-make
-make install
-
-Uninstalling
-------------
-
-make uninstall
-
-Developing
-----------
-
-./bootstrap
-./configure
-make
-
-Release
--------
-
-make dist
-
-License
--------
-
-GPLv3, see COPYING file for details.
