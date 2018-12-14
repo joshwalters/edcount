@@ -20,9 +20,9 @@
 
 void print_help(char **argv) {
     printf("%s\n", PACKAGE_STRING);
-    printf("Usage: %s [OPTION]...\n", argv[0]);
     printf("Estimate distinct count of values from standard input.\n");
-    printf("Value is considered terminated with a newline.\n");
+    printf("Value is considered terminated with a newline.\n\n");
+    printf("Usage: %s [OPTION]...\n", argv[0]);
     printf("\n");
     printf("-h, --help            Print this help message.\n");
     printf("-v, --verbose         Print additional information.\n");
