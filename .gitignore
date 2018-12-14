@@ -1,6 +1,9 @@
 Makefile
 config.h
 src/.deps
+edcount
+src/*.o
+src/.dirstamp
 
 # http://www.gnu.org/software/automake
 

@@ -19,6 +19,8 @@
 #ifndef EDCOUNT_CLI_H
 #define EDCOUNT_CLI_H
 
+#include "config.h"
+
 #include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>

@@ -19,6 +19,7 @@
 #include "cli.h"
 
 void print_help(char **argv) {
+    printf("%s\n", PACKAGE_STRING);
     printf("Usage: %s [OPTION]...\n", argv[0]);
     printf("Estimate distinct count of values from standard input.\n");
     printf("Value is considered terminated with a newline.\n");
