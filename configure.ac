@@ -12,7 +12,7 @@ AC_PROG_CC
 AC_PROG_MAKE_SET
 
 # Checks for libraries.
-AC_SEARCH_LIBS([m])
+AC_SEARCH_LIBS([sqrt], [m])
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
