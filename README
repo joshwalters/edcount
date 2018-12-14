@@ -1,46 +1,51 @@
-# `edcount`
+edcount
+-------
 
-Estimate distinct count of values from standard input.
+Estimate distinct count of values from standard input. Provides a very fast way
+to perform unique count estimates on the command line. Value is considered
+terminated with a newline.
 
-`edcount` provides a very fast way to perform unique count estimates on the
-command line.
+User HyperLogLog to estimate the distinct elements.
 
-## Examples
+Benchmark
+---------
 
-Counting 10 million unique records:
+Counting 10 million unique records with sort and wc:
 
-Using `sort` and `wc`:
-```
 $ seq 1 10000000 | shuf | sort -u | wc -l
 10000000
-
-$ time $(seq 1 10000000 | shuf | sort -u | wc -l > /dev/null)
 real	0m46.034s
 user	0m45.928s
 sys	0m1.040s
-```
 
-Using `edcount`:
-```
+Counting 10 million unique records with edcount
+
 $ seq 1 10000000 | shuf | edcount
 Unique Estimate: 10003339
-
-$ time $(seq 1 10000000 | shuf | edcount > /dev/null)
 real	0m5.713s
 user	0m6.940s
 sys	0m0.432s
-```
 
-## Compiling
+Installing
+----------
 
-### Requirements
+./configure
+make
+make install
 
-`cmake`, `make`, `gcc`
+Uninstalling
+------------
 
-### Building
+make uninstall
 
-Run `make`
+Developing
+----------
 
-## License
+./bootstrap
+./configure
+make
 
-`edcount` is licensed under GPLv3. See the `LICENSE` file for more information.
+Release
+-------
+
+make dist
