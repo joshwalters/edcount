@@ -4,6 +4,7 @@ src/.deps
 edcount
 src/*.o
 src/.dirstamp
+edcount-*.tar.gz
 
 # http://www.gnu.org/software/automake
 
