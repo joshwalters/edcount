@@ -1,4 +1,6 @@
-/build
+Makefile
+config.h
+src/.deps
 
 # http://www.gnu.org/software/automake
 
