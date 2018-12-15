@@ -81,7 +81,7 @@ parse_args(int argc, char **argv, struct CLIArgs *cli_args)
         cli_args->verbose = true;
     }
     // Version flag
-    if (is_flag_present(argc, argv, "--verson", "--version")) {
+    if (is_flag_present(argc, argv, "--version", "--version")) {
         print_version(argv);
         exit(EXIT_SUCCESS);
     }
