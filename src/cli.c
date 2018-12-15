@@ -92,7 +92,7 @@ parse_args(int argc, char **argv, struct CLIArgs *cli_args)
     }
     // Super secret flag
     if (is_flag_present(argc, argv, "--voncount", "--voncount")) {
-        fprintf(stdout, "Seven! Seven bats! Ah, Ah Ah!\n");
+        fprintf(stdout, "Seven! Seven bats! Ah, Ah, Ah!\n");
         exit(EXIT_SUCCESS);
     }
     // Check for unknown flags, report to user and fail if found
