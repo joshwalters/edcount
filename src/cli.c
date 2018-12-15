@@ -18,7 +18,9 @@
 
 #include "cli.h"
 
-void print_help(char **argv) {
+void
+print_help(char **argv)
+{
     printf("%s\n", PACKAGE_STRING);
     printf("Estimate distinct count of values from standard input.\n");
     printf("Value is considered terminated with a newline.\n\n");
@@ -37,8 +39,9 @@ void print_help(char **argv) {
     printf("                        20    0.1%%      1048576\n");
 }
 
-bool is_flag_present(int argc, char **argv,
-                     char *short_flag, char *long_flag) {
+bool
+is_flag_present(int argc, char **argv, char *short_flag, char *long_flag)
+{
     for(int i = 0; i < argc; i++) {
         // Skip nulled (already processed) args
         if (argv[i] == NULL) {
@@ -55,9 +58,10 @@ bool is_flag_present(int argc, char **argv,
     return false;
 }
 
-bool get_flag_value(int argc, char **argv,
-                    char *short_flag, char *long_flag,
-                    char *data, size_t size) {
+bool
+get_flag_value(int argc, char **argv, char *short_flag,
+               char *long_flag, char *data, size_t size)
+{
     for(int i = 0; i < argc; i++) {
         // Skip nulled (already processed) args
         if (argv[i] == NULL) {
@@ -83,7 +87,9 @@ bool get_flag_value(int argc, char **argv,
     return false;
 }
 
-void parse_args(int argc, char **argv, struct CLIArgs *cli_args) {
+void
+parse_args(int argc, char **argv, struct CLIArgs *cli_args)
+{
     char cli_buf[CLI_PARAM_SIZE];
     // Default values
     cli_args->accuracy = 20;

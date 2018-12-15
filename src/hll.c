@@ -18,7 +18,9 @@
 
 #include "hll.h"
 
-uint8_t count_trailing_zeros(uint64_t x) {
+uint8_t
+count_trailing_zeros(uint64_t x)
+{
     if (x == 0) {
         return 64;
     }
@@ -34,7 +36,9 @@ uint8_t count_trailing_zeros(uint64_t x) {
     #endif
 }
 
-int hll_init(struct HLL *hll, uint8_t size) {
+int
+hll_init(struct HLL *hll, uint8_t size)
+{
     if (size < 4 || size > 20) {
         return 1;
     }
@@ -48,7 +52,9 @@ int hll_init(struct HLL *hll, uint8_t size) {
     return 0;
 }
 
-void hll_free(struct HLL *hll) {
+void
+hll_free(struct HLL *hll)
+{
     if (hll->counter != NULL) {
         free(hll->counter);
     }
@@ -56,7 +62,9 @@ void hll_free(struct HLL *hll) {
     return;
 }
 
-void hll_insert(struct HLL *hll, uint64_t hash) {
+void
+hll_insert(struct HLL *hll, uint64_t hash)
+{
     hll->num_inserts += 1;
     uint8_t zeros = count_trailing_zeros(hash) + 1;
     uint64_t index = (hash >> 44) & ((1 << hll->size) - 1);
@@ -65,7 +73,9 @@ void hll_insert(struct HLL *hll, uint64_t hash) {
     }
 }
 
-uint64_t hll_estimate(struct HLL *hll) {
+uint64_t
+hll_estimate(struct HLL *hll)
+{
     double alpha;
     switch (hll->num_counters) {
         case 16:
@@ -98,6 +108,8 @@ uint64_t hll_estimate(struct HLL *hll) {
     return (uint64_t)estimate;
 }
 
-double hll_sigma(struct HLL *hll) {
+double
+hll_sigma(struct HLL *hll)
+{
     return 1.04 / sqrt((double)hll->num_counters);
 }

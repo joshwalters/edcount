@@ -28,7 +28,9 @@
 #define BUF_SIZE 512
 #define STARTING_SEED 2796203
 
-int main(int argc, char **argv) {
+int
+main(int argc, char **argv)
+{
     // Parse the CLI arguments
     struct CLIArgs cli_args;
     parse_args(argc, argv, &cli_args);
