@@ -63,13 +63,13 @@ main(int argc, char **argv)
         fprintf(stderr, "Number of total inserts: %lu\n", hll.num_inserts);
         double sigma = hll_sigma(&hll);
         fprintf(stderr, "Sigma: %f%%\n", sigma * 100);
-        fprintf(stderr, "65%% chance within range: %lu to %lu\n",
+        fprintf(stderr, "65%% confidence interval: %lu to %lu\n",
                 estimate - (uint64_t)(estimate * sigma),
                 estimate + (uint64_t)(estimate * sigma));
-        fprintf(stderr, "95%% chance within range: %lu to %lu\n",
+        fprintf(stderr, "95%% confidence interval: %lu to %lu\n",
                 estimate - (uint64_t)(estimate * 2 * sigma),
                 estimate + (uint64_t)(estimate * 2 * sigma));
-        fprintf(stderr, "99%% chance within range: %lu to %lu\n",
+        fprintf(stderr, "99%% confidence interval: %lu to %lu\n",
                 estimate - (uint64_t)(estimate * 3 * sigma),
                 estimate + (uint64_t)(estimate * 3 * sigma));
     }
