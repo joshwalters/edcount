@@ -2,8 +2,9 @@ edcount
 -------
 
 Estimate distinct count of values from standard input. Provides a very fast
-way to perform unique count estimates on the command line. A value is
-considered terminated with a newline.
+way to perform unique count estimates on the command line.
+
+A value is considered terminated with a newline.
 
 Why use it?
 -----------
