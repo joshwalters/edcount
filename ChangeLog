@@ -1,5 +1,6 @@
 2018-12-14
     - Removed accuracy option, default to max
 	- Added "--version" option
+	- Added more help information for bug reports
 2018-12-13
 	- First release, 0.1.0

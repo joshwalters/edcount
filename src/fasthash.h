@@ -2,7 +2,7 @@
    The MIT License
 
    Copyright (C) 2012 Zilong Tan (eric.zltan@gmail.com)
-   Copyright (C) 2018 Harold Freeman
+   Copyright (C) 2018 Harold Freeman (haroldfreeman@protonmail.com)
 
    Permission is hereby granted, free of charge, to any person
    obtaining a copy of this software and associated documentation

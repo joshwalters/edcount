@@ -1,6 +1,6 @@
 /*
     edcount - estimate distinct count utility tool.
-    Copyright (C) 2018 Harold Freeman
+    Copyright (C) 2018 Harold Freeman (haroldfreeman@protonmail.com)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -24,7 +24,8 @@ print_help(char **argv)
     fprintf(stdout, "%s\n", PACKAGE_STRING);
     fprintf(stdout, "Estimate distinct count of values from standard "
                     "input.\n");
-    fprintf(stdout, "Value is considered terminated with a newline.\n\n");
+    fprintf(stdout, "Value is considered terminated with a newline.\n");
+    fprintf(stdout, "\n");
     fprintf(stdout, "Usage: %s [OPTION]...\n", argv[0]);
     fprintf(stdout, "\n");
     fprintf(stdout, "-h, --help       Print this help message.\n");
@@ -32,6 +33,10 @@ print_help(char **argv)
                     "data.\n");
     fprintf(stdout, "                 Error bounds, number of input records, "
                     "etc.\n");
+    fprintf(stdout, "\n");
+    fprintf(stdout, "Report bugs to: haroldfreeman@protonmail.com\n");
+    fprintf(stdout, "pkg home page: "
+                    "<https://github.com/haroldfreeman/edcount>\n");
 }
 
 void
