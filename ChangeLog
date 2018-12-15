@@ -1,2 +1,5 @@
+2018-12-14
+    - Removed accuracy option, default to max
+	- Added "--version" option
 2018-12-13
 	- First release, 0.1.0
