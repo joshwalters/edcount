@@ -1,14 +1,20 @@
+# Project files
+edcount
+edcount-*.tar.gz
+
+# Build files
 Makefile
 config.h
-src/.deps
-edcount
-src/*.o
-src/.dirstamp
-edcount-*.tar.gz
-test-suite.log
-check_edcount
-check_edcount.log
-check_edcount.trs
+
+# Test files
+check_*
+test_*
+**/*.o
+**/.deps
+**/.dirstamp
+**/*~
+*.log
+*.trs
 
 # http://www.gnu.org/software/automake
 

@@ -10,6 +10,16 @@ edcount_SOURCES = \
 	src/fasthash.c \
 	src/fasthash.h
 
-TESTS = check_edcount
-check_PROGRAMS = check_edcount
-check_edcount_SOURCES = src/test.c
+# Setup tests
+TESTS = \
+		test_hll
+check_PROGRAMS = $(TESTS)
+
+# Test HLL
+test_hll_CFLAGS = -lm
+test_hll_SOURCES = \
+	test/hll/test.c \
+	src/fasthash.c \
+	src/fasthash.h \
+	src/hll.c \
+	src/hll.h
