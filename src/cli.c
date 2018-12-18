@@ -29,6 +29,7 @@ print_help(char **argv)
     fprintf(stdout, "Usage: %s [OPTION]...\n", argv[0]);
     fprintf(stdout, "\n");
     fprintf(stdout, "-h, --help       Print this help message.\n");
+    fprintf(stdout, "    --version    Print version and copyright information.\n");
     fprintf(stdout, "-v, --verbose    Print additional information about the "
                     "data.\n");
     fprintf(stdout, "                 Error bounds, number of input records, "
