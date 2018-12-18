@@ -12,7 +12,8 @@ edcount_SOURCES = \
 
 # Setup tests
 TESTS = \
-		test_hll
+		test_hll \
+		test_cli
 check_PROGRAMS = $(TESTS)
 
 # Test HLL
@@ -23,3 +24,9 @@ test_hll_SOURCES = \
 	src/fasthash.h \
 	src/hll.c \
 	src/hll.h
+
+# Test CLI
+test_cli_SOURCES = \
+	test/cli/test.c \
+	src/cli.c \
+	src/cli.h
