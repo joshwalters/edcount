@@ -24,47 +24,53 @@
 #include "src/cli.h"
 
 int
-test_verbose() {
-	// Setup arguments
-	int arg_count = 2;
-	char *arg_values[2];
-	arg_values[0] = "PROG_NAME";
-	arg_values[1] = "--verbose";
-	// Parse the CLI arguments
-	struct CLIArgs cli_args;
-	parse_args (arg_count, arg_values, &cli_args);
-	// Verify that using verbose
-  	if (cli_args.verbose == false) {
-		fprintf(stderr, "Verbose == false, should be true.\n");
-		return 1;
-	}
-	return 0;
+test_verbose ()
+{
+  // Setup arguments
+  int arg_count = 2;
+  char *arg_values[2];
+  arg_values[0] = "PROG_NAME";
+  arg_values[1] = "--verbose";
+  // Parse the CLI arguments
+  struct CLIArgs cli_args;
+  parse_args (arg_count, arg_values, &cli_args);
+  // Verify that using verbose
+  if (cli_args.verbose == false)
+    {
+      fprintf (stderr, "Verbose == false, should be true.\n");
+      return 1;
+    }
+  return 0;
 }
 
 int
-test_not_verbose() {
-	// Setup arguments
-	int arg_count = 1;
-	char *arg_values[1];
-	arg_values[0] = "PROG_NAME";
-	// Parse the CLI arguments
-	struct CLIArgs cli_args;
-	parse_args (arg_count, arg_values, &cli_args);
-	// Verify that not verbose
-  	if (cli_args.verbose == true) {
-		fprintf(stderr, "Verbose == true, should default to false.\n");
-		return 1;
-	}
-	return 0;
+test_not_verbose ()
+{
+  // Setup arguments
+  int arg_count = 1;
+  char *arg_values[1];
+  arg_values[0] = "PROG_NAME";
+  // Parse the CLI arguments
+  struct CLIArgs cli_args;
+  parse_args (arg_count, arg_values, &cli_args);
+  // Verify that not verbose
+  if (cli_args.verbose == true)
+    {
+      fprintf (stderr, "Verbose == true, should default to false.\n");
+      return 1;
+    }
+  return 0;
 }
 
-int main(int argc, char **argv)
+int
+main (int argc, char **argv)
 {
-	int errors = 0;
-	errors += test_verbose();
-	errors += test_not_verbose();
-	if (errors > 0) {
-		exit(EXIT_FAILURE);
-	}
-	exit(EXIT_SUCCESS);
+  int errors = 0;
+  errors += test_verbose ();
+  errors += test_not_verbose ();
+  if (errors > 0)
+    {
+      exit (EXIT_FAILURE);
+    }
+  exit (EXIT_SUCCESS);
 }
