@@ -19,90 +19,102 @@
 #include "cli.h"
 
 void
-print_help(char **argv)
+print_help (char **argv)
 {
-    fprintf(stdout, "%s\n", PACKAGE_STRING);
-    fprintf(stdout, "Estimate distinct count of values from standard "
-                    "input.\n");
-    fprintf(stdout, "Value is considered terminated with a newline.\n");
-    fprintf(stdout, "\n");
-    fprintf(stdout, "Usage: %s [OPTION]...\n", argv[0]);
-    fprintf(stdout, "\n");
-    fprintf(stdout, "-h, --help       Print this help message.\n");
-    fprintf(stdout, "    --version    Print version and copyright information.\n");
-    fprintf(stdout, "-v, --verbose    Print additional information about the "
-                    "data.\n");
-    fprintf(stdout, "                 Error bounds, number of input records, "
-                    "etc.\n");
-    fprintf(stdout, "\n");
-    fprintf(stdout, "Report bugs to: haroldfreeman@protonmail.com\n");
-    fprintf(stdout, "pkg home page: "
-                    "<https://github.com/haroldfreeman/edcount>\n");
+  fprintf (stdout, "%s\n", PACKAGE_STRING);
+  fprintf (stdout, "Estimate distinct count of values from standard "
+	   "input.\n");
+  fprintf (stdout, "Value is considered terminated with a newline.\n");
+  fprintf (stdout, "\n");
+  fprintf (stdout, "Usage: %s [OPTION]...\n", argv[0]);
+  fprintf (stdout, "\n");
+  fprintf (stdout, "-h, --help       Print this help message.\n");
+  fprintf (stdout,
+	   "    --version    Print version and copyright information.\n");
+  fprintf (stdout,
+	   "-v, --verbose    Print additional information about the "
+	   "data.\n");
+  fprintf (stdout,
+	   "                 Error bounds, number of input records, "
+	   "etc.\n");
+  fprintf (stdout, "\n");
+  fprintf (stdout, "Report bugs to: haroldfreeman@protonmail.com\n");
+  fprintf (stdout, "pkg home page: "
+	   "<https://github.com/haroldfreeman/edcount>\n");
 }
 
 void
-print_version()
+print_version ()
 {
-    fprintf(stdout, "%s\n", PACKAGE_STRING);
-    fprintf(stdout, "Copyright (C) 2018 Harold Freeman\n");
-    fprintf(stdout, "License GPLv3+: GNU GPL version 3 or "
-                    "later <https://gnu.org/licenses/gpl.html>\n");
-    fprintf(stdout, "This is free software: you are free to change and "
-                    "redistribute it.\n");
-    fprintf(stdout, "There is NO WARRANTY, to the extent permitted by law.\n");
+  fprintf (stdout, "%s\n", PACKAGE_STRING);
+  fprintf (stdout, "Copyright (C) 2018 Harold Freeman\n");
+  fprintf (stdout, "License GPLv3+: GNU GPL version 3 or "
+	   "later <https://gnu.org/licenses/gpl.html>\n");
+  fprintf (stdout, "This is free software: you are free to change and "
+	   "redistribute it.\n");
+  fprintf (stdout, "There is NO WARRANTY, to the extent permitted by law.\n");
 }
 
 bool
-is_flag_present(int argc, char **argv, char *short_flag, char *long_flag)
+is_flag_present (int argc, char **argv, char *short_flag, char *long_flag)
 {
-    for(int i = 0; i < argc; i++) {
-        // Skip nulled (already processed) args
-        if (argv[i] == NULL) {
-            continue;
-        }
-        // Check if flag matches
-        if (strcmp(argv[i], short_flag) == 0 ||
-            strcmp(argv[i], long_flag) == 0) {
-            // Null out the value, for enforcement of unknown flags
-            argv[i] = NULL;
-            return true;
-        }
+  for (int i = 0; i < argc; i++)
+    {
+      // Skip nulled (already processed) args
+      if (argv[i] == NULL)
+	{
+	  continue;
+	}
+      // Check if flag matches
+      if (strcmp (argv[i], short_flag) == 0 ||
+	  strcmp (argv[i], long_flag) == 0)
+	{
+	  // Null out the value, for enforcement of unknown flags
+	  argv[i] = NULL;
+	  return true;
+	}
     }
-    return false;
+  return false;
 }
 
 void
-parse_args(int argc, char **argv, struct CLIArgs *cli_args)
+parse_args (int argc, char **argv, struct CLIArgs *cli_args)
 {
-    // Default values
-    cli_args->accuracy = 20;
-    cli_args->verbose = false;
-    // Help flag
-    if (is_flag_present(argc, argv, "-h", "--help")) {
-        print_help(argv);
-        exit(EXIT_SUCCESS);
+  // Default values
+  cli_args->accuracy = 20;
+  cli_args->verbose = false;
+  // Help flag
+  if (is_flag_present (argc, argv, "-h", "--help"))
+    {
+      print_help (argv);
+      exit (EXIT_SUCCESS);
     }
-    // Verbose flag
-    if (is_flag_present(argc, argv, "-v", "--verbose")) {
-        cli_args->verbose = true;
+  // Verbose flag
+  if (is_flag_present (argc, argv, "-v", "--verbose"))
+    {
+      cli_args->verbose = true;
     }
-    // Version flag
-    if (is_flag_present(argc, argv, "--version", "--version")) {
-        print_version(argv);
-        exit(EXIT_SUCCESS);
+  // Version flag
+  if (is_flag_present (argc, argv, "--version", "--version"))
+    {
+      print_version (argv);
+      exit (EXIT_SUCCESS);
     }
-    // Super secret flag
-    if (is_flag_present(argc, argv, "--voncount", "--voncount")) {
-        fprintf(stdout, "Seven! Seven bats! Ah, Ah, Ah!\n");
-        exit(EXIT_SUCCESS);
+  // Super secret flag
+  if (is_flag_present (argc, argv, "--voncount", "--voncount"))
+    {
+      fprintf (stdout, "Seven! Seven bats! Ah, Ah, Ah!\n");
+      exit (EXIT_SUCCESS);
     }
-    // Check for unknown flags, report to user and fail if found
-    int i;
-    for (i = 1; i < argc; i++) {
-        if (argv[i] != NULL) {
-            fprintf(stderr, "Invalid argument '%s'\n\n", argv[i]);
-            print_help(argv);
-            exit(EXIT_FAILURE);
-        }
+  // Check for unknown flags, report to user and fail if found
+  int i;
+  for (i = 1; i < argc; i++)
+    {
+      if (argv[i] != NULL)
+	{
+	  fprintf (stderr, "Invalid argument '%s'\n\n", argv[i]);
+	  print_help (argv);
+	  exit (EXIT_FAILURE);
+	}
     }
 }

@@ -5,6 +5,10 @@ edcount
 src/*.o
 src/.dirstamp
 edcount-*.tar.gz
+test-suite.log
+check_edcount
+check_edcount.log
+check_edcount.trs
 
 # http://www.gnu.org/software/automake
 

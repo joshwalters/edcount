@@ -38,6 +38,6 @@
  * @param seed The seed.
  * @return Hash value.
  */
-uint64_t fasthash64(const void *buf, size_t len, uint64_t seed);
+uint64_t fasthash64 (const void *buf, size_t len, uint64_t seed);
 
 #endif

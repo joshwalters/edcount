@@ -27,11 +27,12 @@
 /**
  * Store the HLL.
  */
-struct HLL {
-    uint8_t size;
-    uint8_t *counter;
-    uint64_t num_counters;
-    uint64_t num_inserts;
+struct HLL
+{
+  uint8_t size;
+  uint8_t *counter;
+  uint64_t num_counters;
+  uint64_t num_inserts;
 };
 
 /**
@@ -40,32 +41,32 @@ struct HLL {
  * @param size Size of the HLL. Between range 4 to 20.
  * @return 0 on success, 1 on failure.
  */
-int hll_init(struct HLL *hll, uint8_t size);
+int hll_init (struct HLL *hll, uint8_t size);
 
 /**
  * Free HLL memory.
  * @param hll HLL instance to use.
  */
-void hll_free(struct HLL *hll);
+void hll_free (struct HLL *hll);
 
 /**
  * Insert hash into HLL.
  * @param hll HLL instance to use.
  * @param hash Hash to insert.
  */
-void hll_insert(struct HLL *hll, uint64_t hash);
+void hll_insert (struct HLL *hll, uint64_t hash);
 
 /**
  * Estimate cardinality stored in the HLL.
  * @param hll HLL instance to use.
  */
-uint64_t hll_estimate(struct HLL *hll);
+uint64_t hll_estimate (struct HLL *hll);
 
 /**
  * Compute sigma for the HLL.
  * @param hll HLL instance to use.
  * @return Sigma value.
  */
-double hll_sigma(struct HLL *hll);
+double hll_sigma (struct HLL *hll);
 
 #endif

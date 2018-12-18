@@ -32,18 +32,19 @@
 /**
  * Store CLI arguments.
  */
-struct CLIArgs {
-    // Accuracy to use
-    uint8_t accuracy;
-    // Weather to print verbose information
-    bool verbose;
+struct CLIArgs
+{
+  // Accuracy to use
+  uint8_t accuracy;
+  // Weather to print verbose information
+  bool verbose;
 };
 
 /**
  * Print CLI help information.
  * @param argv Argument strings
  */
-void print_help(char **argv);
+void print_help (char **argv);
 
 /**
  * Check if a flag is present in the args.
@@ -53,7 +54,8 @@ void print_help(char **argv);
  * @param long_flag Search argv for this string.
  * @return True if flag present, false otherwise
  */
-bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag);
+bool is_flag_present (int argc, char **argv, char *short_flag,
+		      char *long_flag);
 
 /**
  * Get value for a flag.
@@ -65,8 +67,8 @@ bool is_flag_present(int argc, char **argv, char *short_flag, char *long_flag);
  * @param size Max values to copy to data.
  * @return True if flag and value present, false otherwise.
  */
-bool get_flag_value(int argc, char **argv, char *short_flag,
-                    char *long_flag, char *data, size_t size);
+bool get_flag_value (int argc, char **argv, char *short_flag,
+		     char *long_flag, char *data, size_t size);
 
 /**
  * Parse CLI arguments into CLIArg struct.
@@ -74,6 +76,6 @@ bool get_flag_value(int argc, char **argv, char *short_flag,
  * @param argv Argument strings.
  * @param cli_args Used to store arguments.
  */
-void parse_args(int argc, char **argv, struct CLIArgs *cli_args);
+void parse_args (int argc, char **argv, struct CLIArgs *cli_args);
 
 #endif

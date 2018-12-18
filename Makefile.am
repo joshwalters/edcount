@@ -9,3 +9,7 @@ edcount_SOURCES = \
 	src/hll.h \
 	src/fasthash.c \
 	src/fasthash.h
+
+TESTS = check_edcount
+check_PROGRAMS = check_edcount
+check_edcount_SOURCES = src/test.c
