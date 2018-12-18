@@ -31,10 +31,11 @@ test_cli_SOURCES = \
 	src/cli.c \
 	src/cli.h
 
-# Generate man page
-edcount.1: src/main.c
-	-$(HELP2MAN) --output=$@ ./edcount
-man_MANS = edcount.1
+## Generate man page
+#edcount.1: src/main.c
+#	-$(HELP2MAN) --output=$@ ./edcount
+#man_MANS = edcount.1
+#CLEANFILES = edcount.1
 
 # Enforce GNU formatting
 indent:

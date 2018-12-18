@@ -23,12 +23,12 @@ AC_SEARCH_LIBS([sqrt], [m])
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
 
-# Create manpages if not cross compiling
-if test $cross_compiling = no; then
-  AM_MISSING_PROG(HELP2MAN, help2man)
-else
-  HELP2MAN=:
-fi
+## Create manpages if not cross compiling
+#if test $cross_compiling = no; then
+#  AM_MISSING_PROG(HELP2MAN, help2man)
+#else
+#  HELP2MAN=:
+#fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
