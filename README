@@ -46,3 +46,13 @@ user  0m1.172s
 sys   0m0.180s
 
 This is less than a 0.1% difference from the actual unique value.
+
+Install
+-------
+
+See the INSTALL file.
+
+License
+-------
+
+See the COPYING file.
