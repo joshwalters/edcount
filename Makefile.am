@@ -37,3 +37,9 @@ edcount.1: src/cli.c
 	-$(HELP2MAN) --output=$@ --no-info ./edcount
 CLEANFILES = edcount.1
 EXTRA_DIST = edcount.1
+
+# Format code
+.PHONY: format
+format:
+	find ./ -type f -name '*.[ch]' -exec $(INDENT) '{}' \
+		-kr -ci4 -cli4 -i4 -l79 -nut \;
