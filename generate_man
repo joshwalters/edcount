@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Check that help2man is installed
+command -v help2man >/dev/null 2>&1 || { echo >&2 "I require 'help2man' but it is not installed. Aborting."; exit 1; }
+
 # Generate man file
 make
 help2man ./edcount > edcount.1
