@@ -35,3 +35,4 @@ test_cli_SOURCES = \
 man_MANS = edcount.1
 edcount.1: src/cli.c
 	-$(HELP2MAN) --output=$@ --no-info ./edcount
+CLEANFILES = edcount.1
