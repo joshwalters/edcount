@@ -5,4 +5,4 @@ command -v help2man >/dev/null 2>&1 || { echo >&2 "I require 'help2man' but it i
 
 # Generate man file
 make
-help2man ./edcount > edcount.1
+help2man --no-info ./edcount > doc/edcount.1

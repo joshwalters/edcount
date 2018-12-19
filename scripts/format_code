@@ -3,5 +3,7 @@
 # Check that indent is installed
 command -v indent >/dev/null 2>&1 || { echo >&2 "I require 'indent' but it is not installed. Aborting."; exit 1; }
 
-# Format code to GNU standard
-find ./ -type f -name '*.[ch]' -exec indent '{}' \;
+# Format code to GNU
+#find ./ -type f -name '*.[ch]' -exec indent '{}' \;
+# Format
+find ./ -type f -name '*.[ch]' -exec indent '{}' -kr -ci2 -cli2 -i2 -l80 -nut \;
