@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([edcount], [0.1.2], [haroldfreeman@protonmail.com])
+AC_INIT([edcount], [1.0.0], [haroldfreeman@protonmail.com])
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror])
@@ -21,7 +21,7 @@ AC_PROG_MAKE_SET
 AC_SEARCH_LIBS([sqrt], [m])
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdint.h stdlib.h string.h])
+AC_CHECK_HEADERS([stdint.h stdlib.h string.h stdbool.h stdio.h math.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
