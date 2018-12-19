@@ -30,49 +30,49 @@
 
 int main(int argc, char **argv)
 {
-  // Parse the CLI arguments
-  struct CLIArgs cli_args;
-  parse_args(argc, argv, &cli_args);
-  // Create the HLL
-  struct HLL hll;
-  if (hll_init(&hll, cli_args.accuracy) != 0) {
-    fprintf(stderr, "Error allocating memory.\n");
-    exit(EXIT_FAILURE);
-  }
-  // Read STDIN
-  char buf[BUF_SIZE];
-  // Used for accumulating hashes when line is longer than BUF_SIZE
-  uint64_t seed = STARTING_SEED;
-  while (fgets(buf, BUF_SIZE, stdin) != NULL) {
-    uint64_t hash = fasthash64(buf, strlen(buf), seed);
-    // Check if fgets read whole string
-    if (strchr(buf, '\n') != NULL) {
-      hll_insert(&hll, hash);
-      seed = STARTING_SEED;
-    } else {
-      // Did not contain newline, need to continue hashing this line
-      seed = hash;
+    // Parse the CLI arguments
+    struct CLIArgs cli_args;
+    parse_args(argc, argv, &cli_args);
+    // Create the HLL
+    struct HLL hll;
+    if (hll_init(&hll, cli_args.accuracy) != 0) {
+        fprintf(stderr, "Error allocating memory.\n");
+        exit(EXIT_FAILURE);
     }
-  }
-  // Compute estimate distinct count
-  uint64_t estimate = hll_estimate(&hll);
-  fprintf(stdout, "%lu\n", estimate);
-  // Print verbose information
-  if (cli_args.verbose) {
-    fprintf(stderr, "Number of total inserts: %lu\n", hll.num_inserts);
-    double sigma = hll_sigma(&hll);
-    fprintf(stderr, "Sigma: %f%%\n", sigma * 100);
-    fprintf(stderr, "65%% confidence interval: %lu to %lu\n",
-            estimate - (uint64_t) (estimate * sigma),
-            estimate + (uint64_t) (estimate * sigma));
-    fprintf(stderr, "95%% confidence interval: %lu to %lu\n",
-            estimate - (uint64_t) (estimate * 2 * sigma),
-            estimate + (uint64_t) (estimate * 2 * sigma));
-    fprintf(stderr, "99%% confidence interval: %lu to %lu\n",
-            estimate - (uint64_t) (estimate * 3 * sigma),
-            estimate + (uint64_t) (estimate * 3 * sigma));
-  }
-  // Free memory
-  hll_free(&hll);
-  exit(EXIT_SUCCESS);
+    // Read STDIN
+    char buf[BUF_SIZE];
+    // Used for accumulating hashes when line is longer than BUF_SIZE
+    uint64_t seed = STARTING_SEED;
+    while (fgets(buf, BUF_SIZE, stdin) != NULL) {
+        uint64_t hash = fasthash64(buf, strlen(buf), seed);
+        // Check if fgets read whole string
+        if (strchr(buf, '\n') != NULL) {
+            hll_insert(&hll, hash);
+            seed = STARTING_SEED;
+        } else {
+            // Did not contain newline, need to continue hashing this line
+            seed = hash;
+        }
+    }
+    // Compute estimate distinct count
+    uint64_t estimate = hll_estimate(&hll);
+    fprintf(stdout, "%lu\n", estimate);
+    // Print verbose information
+    if (cli_args.verbose) {
+        fprintf(stderr, "Number of total inserts: %lu\n", hll.num_inserts);
+        double sigma = hll_sigma(&hll);
+        fprintf(stderr, "Sigma: %f%%\n", sigma * 100);
+        fprintf(stderr, "65%% confidence interval: %lu to %lu\n",
+                estimate - (uint64_t) (estimate * sigma),
+                estimate + (uint64_t) (estimate * sigma));
+        fprintf(stderr, "95%% confidence interval: %lu to %lu\n",
+                estimate - (uint64_t) (estimate * 2 * sigma),
+                estimate + (uint64_t) (estimate * 2 * sigma));
+        fprintf(stderr, "99%% confidence interval: %lu to %lu\n",
+                estimate - (uint64_t) (estimate * 3 * sigma),
+                estimate + (uint64_t) (estimate * 3 * sigma));
+    }
+    // Free memory
+    hll_free(&hll);
+    exit(EXIT_SUCCESS);
 }

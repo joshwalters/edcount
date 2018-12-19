@@ -28,10 +28,10 @@
  * Store the HLL.
  */
 struct HLL {
-  uint8_t size;
-  uint8_t *counter;
-  uint64_t num_counters;
-  uint64_t num_inserts;
+    uint8_t size;
+    uint8_t *counter;
+    uint64_t num_counters;
+    uint64_t num_inserts;
 };
 
 /**

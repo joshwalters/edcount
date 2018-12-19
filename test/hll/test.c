@@ -26,20 +26,20 @@
 
 int main(int argc, char **argv)
 {
-  struct HLL hll;
-  if (hll_init(&hll, 20) != 0) {
-    fprintf(stderr, "Error allocating memory.\n");
-    exit(EXIT_FAILURE);
-  }
-  for (int i = 0; i < 100000; i++) {
-    uint64_t hash = fasthash64(&i, sizeof(int), 42);
-    hll_insert(&hll, hash);
-  }
-  // Compute estimate distinct count
-  uint64_t estimate = hll_estimate(&hll);
-  if (estimate < 98000 || estimate > 102000) {
-    fprintf(stderr, "Estimate outside expected range: %lu\n", estimate);
-    exit(EXIT_FAILURE);
-  }
-  exit(EXIT_SUCCESS);
+    struct HLL hll;
+    if (hll_init(&hll, 20) != 0) {
+        fprintf(stderr, "Error allocating memory.\n");
+        exit(EXIT_FAILURE);
+    }
+    for (int i = 0; i < 100000; i++) {
+        uint64_t hash = fasthash64(&i, sizeof(int), 42);
+        hll_insert(&hll, hash);
+    }
+    // Compute estimate distinct count
+    uint64_t estimate = hll_estimate(&hll);
+    if (estimate < 98000 || estimate > 102000) {
+        fprintf(stderr, "Estimate outside expected range: %lu\n", estimate);
+        exit(EXIT_FAILURE);
+    }
+    exit(EXIT_SUCCESS);
 }

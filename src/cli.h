@@ -33,10 +33,10 @@
  * Store CLI arguments.
  */
 struct CLIArgs {
-  // Accuracy to use
-  uint8_t accuracy;
-  // Weather to print verbose information
-  bool verbose;
+    // Accuracy to use
+    uint8_t accuracy;
+    // Weather to print verbose information
+    bool verbose;
 };
 
 /**
