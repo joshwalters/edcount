@@ -1,0 +1,21 @@
+Building
+--------
+
+./bootstrap
+./configure
+make
+
+Testing
+-------
+
+make check
+
+Generate docs
+-------------
+
+./generate_man
+
+Format code
+-----------
+
+./format_code
