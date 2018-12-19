@@ -1,5 +1,6 @@
 # Project files
-edcount*
+edcount
+edcount-*.tar.gz
 
 # Build files
 Makefile
