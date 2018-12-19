@@ -1,9 +1,12 @@
 2018-12-18
-	- Release 1.0.0.
-	- Small command line option changes.
-		- Will be stable in terms of future changes.
-	- Added man page.
-	- Faster and more accurate estimation.
+	- Version 1.0.0 released.
+	- Faster and more accurate estimates.
+	- Now has man page.
+
+2018-12-14
+	- Better README.
+	- Better verbose output.
+	- Removed accuracy option to simplify program.
 
 2018-12-13
     - First release, 0.1.0.
