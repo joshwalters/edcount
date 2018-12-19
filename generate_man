@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Generate man file
+make
+help2man ./edcount > edcount.1
