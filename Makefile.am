@@ -32,4 +32,4 @@ test_cli_SOURCES = \
 	src/cli.h
 
 # Manual file
-man_MANS = edcount.1
+man_MANS = doc/edcount.1
