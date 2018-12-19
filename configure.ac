@@ -23,6 +23,9 @@ AC_SEARCH_LIBS([sqrt], [m])
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h stdbool.h stdio.h math.h])
 
+# Check for help2man
+AC_PATH_PROG(HELP2MAN, help2man, false)
+
 # Checks for typedefs, structures, and compiler characteristics.
 AC_CHECK_HEADER_STDBOOL
 AC_C_INLINE

@@ -32,4 +32,6 @@ test_cli_SOURCES = \
 	src/cli.h
 
 # Manual file
-man_MANS = doc/edcount.1
+man_MANS = edcount.1
+edcount.1: src/cli.c
+	-$(HELP2MAN) --output=$@ --no-info ./edcount
