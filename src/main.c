@@ -25,8 +25,8 @@
 #include "cli.h"
 #include "hll.h"
 
-#define BUF_SIZE 512
-#define STARTING_SEED 2796203
+#define BUF_SIZE 128
+#define STARTING_SEED 19721127
 
 int main(int argc, char **argv)
 {

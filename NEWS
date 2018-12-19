@@ -1,2 +1,9 @@
+2018-12-18
+	- Release 1.0.0.
+	- Small command line option changes.
+		- Will be stable in terms of future changes.
+	- Added man page.
+	- Faster and more accurate estimation.
+
 2018-12-13
-    - First release, 0.1.0
+    - First release, 0.1.0.

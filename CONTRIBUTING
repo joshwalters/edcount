@@ -19,3 +19,8 @@ Format code
 -----------
 
 ./format_code
+
+Packaging
+---------
+
+make distcheck
