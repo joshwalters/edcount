@@ -24,7 +24,6 @@ AC_SEARCH_LIBS([sqrt], [m])
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h stdbool.h stdio.h math.h])
 
 # Check for programs used during development
-AM_MISSING_PROG(HELP2MAN, help2man, $missing_dir)
 AM_MISSING_PROG(INDENT, indent, $missing_dir)
 
 # Checks for typedefs, structures, and compiler characteristics.
