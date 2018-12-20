@@ -1,9 +1,3 @@
-Depedencies
------------
-
-help2man
-indent
-
 Building
 --------
 
@@ -18,6 +12,8 @@ make check
 
 Format code
 -----------
+
+Required `indent` to be installed.
 
 make format
 

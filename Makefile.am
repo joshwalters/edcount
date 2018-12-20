@@ -32,11 +32,8 @@ test_cli_SOURCES = \
 	src/cli.h
 
 # Manual file
-man_MANS = edcount.1
-edcount.1: src/cli.c
-	-$(HELP2MAN) --output=$@ --no-info ./edcount
-CLEANFILES = edcount.1
-EXTRA_DIST = edcount.1
+man_MANS = doc/edcount.1
+EXTRA_DIST = doc/edcount.1
 
 # Format code
 .PHONY: format
