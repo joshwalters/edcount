@@ -55,7 +55,7 @@ Fast Install Instructions
 -------------------------
 
 ```
-curl -o edcount-1.0.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.0.0/edcount-1.0.0.tar.gz
+curl -L -o edcount-1.0.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.0.0/edcount-1.0.0.tar.gz
 tar -xzvf edcount-1.0.0.tar.gz
 cd edcount-1.0.0
 ./configure
