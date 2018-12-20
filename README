@@ -31,30 +31,41 @@ Benchmark
 
 Counting 10 million unique records with sort and wc:
 
+```
 $ seq 1 10000000 | shuf | sort -u | wc -l
 10000000
 real  1m16.213s
 user  1m13.516s
 sys   0m1.516s
+```
 
 Counting 10 million unique records with edcount:
 
+```
 $ seq 1 10000000 | shuf | edcount
 9988659
 real  0m1.110s
 user  0m1.172s
 sys   0m0.180s
+```
 
 This is a 0.11% difference from the actual unique value.
 
-Install
--------
+Fast Install Instructions
+-------------------------
 
+```
+curl -o edcount-1.0.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.0.0/edcount-1.0.0.tar.gz
+tar -xzvf edcount-1.0.0.tar.gz
+cd edcount-1.0.0
 ./configure
 make
 make install
+```
 
-See the INSTALL file.
+You might have to use `sudo make install` instead of `make install`.
+
+For more detail, see the INSTALL file.
 
 Contributing / Development
 --------------------------
