@@ -4,4 +4,4 @@ script:
     - ./bootstrap
     - ./configure
     - make
-    - make check
+    - make distcheck
