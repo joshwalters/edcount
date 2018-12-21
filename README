@@ -1,6 +1,8 @@
 edcount
 -------
 
+[![Build Status](https://travis-ci.com/haroldfreeman/edcount.svg?branch=master)](https://travis-ci.com/haroldfreeman/edcount)
+
 Estimate distinct count of values from standard input. Provides a very fast
 way to perform unique count estimates on the command line.
 
@@ -57,9 +59,9 @@ Fast Install Instructions
 Required software: `make`,`gcc`
 
 ```
-curl -L -o edcount-1.0.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.0.0/edcount-1.0.0.tar.gz
-tar -xzvf edcount-1.0.0.tar.gz
-cd edcount-1.0.0
+curl -L -o edcount-1.1.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.1.0/edcount-1.1.0.tar.gz
+tar -xzvf edcount-1.1.0.tar.gz
+cd edcount-1.1.0
 ./configure
 make
 make install
