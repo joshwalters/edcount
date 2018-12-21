@@ -1,6 +1,8 @@
 edcount
 -------
 
+[![Build Status](https://travis-ci.com/haroldfreeman/edcount.svg?branch=master)](https://travis-ci.com/haroldfreeman/edcount)
+
 Estimate distinct count of values from standard input. Provides a very fast
 way to perform unique count estimates on the command line.
 
