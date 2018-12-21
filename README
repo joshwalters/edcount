@@ -54,6 +54,8 @@ This is a 0.11% difference from the actual unique value.
 Fast Install Instructions
 -------------------------
 
+Required software: `make`,`gcc`
+
 ```
 curl -L -o edcount-1.0.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.0.0/edcount-1.0.0.tar.gz
 tar -xzvf edcount-1.0.0.tar.gz
