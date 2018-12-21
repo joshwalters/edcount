@@ -25,7 +25,7 @@ AC_SEARCH_LIBS([sqrt], [m], [], [
                   ])
 
 # Checks for library functions.
-AC_CHECK_FUNCS([sqrt strchr strtol sqrt log], [] , [
+AC_CHECK_FUNCS([sqrt strchr strtol log], [] , [
                   AC_MSG_ERROR([Missing function])
                 ])
 
