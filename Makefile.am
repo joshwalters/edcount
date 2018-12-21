@@ -1,6 +1,6 @@
+ACLOCAL_AMFLAGS = -I m4
 AUTOMAKE_OPTIONS = subdir-objects
 bin_PROGRAMS = edcount
-edcount_CFLAGS = -lm
 edcount_SOURCES = \
 	src/main.c \
 	src/cli.c \
@@ -17,7 +17,6 @@ TESTS = \
 check_PROGRAMS = $(TESTS)
 
 # Test HLL
-test_hll_CFLAGS = -lm
 test_hll_SOURCES = \
 	test/hll/test.c \
 	src/fasthash.c \
