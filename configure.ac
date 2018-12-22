@@ -1,5 +1,5 @@
 AC_PREREQ([2.69])
-AC_INIT([edcount], [1.1.0], [haroldfreeman@protonmail.com])
+AC_INIT([edcount], [1.2.0], [haroldfreeman@protonmail.com])
 AC_LANG(C)
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
