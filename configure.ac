@@ -4,7 +4,7 @@ AC_LANG(C)
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([-Wall -Werror])
-LT_INIT
+#LT_INIT
 
 # Add macro directory
 AC_CONFIG_MACRO_DIR([m4])
@@ -12,7 +12,7 @@ AC_CONFIG_MACRO_DIR([m4])
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_MAKE_SET
-AC_PROG_LIBTOOL
+#AC_PROG_LIBTOOL
 
 # Checks for header files.
 AC_CHECK_HEADERS([stdint.h stdlib.h string.h stdbool.h stdio.h math.h], [], [
