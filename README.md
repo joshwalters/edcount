@@ -59,9 +59,9 @@ Fast Install Instructions
 Required software: `make`,`gcc`
 
 ```
-curl -L -o edcount-1.1.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.1.0/edcount-1.1.0.tar.gz
-tar -xzvf edcount-1.1.0.tar.gz
-cd edcount-1.1.0
+curl -L -o edcount-1.2.0.tar.gz https://github.com/haroldfreeman/edcount/releases/download/v1.2.0/edcount-1.2.0.tar.gz
+tar -xzvf edcount-1.2.0.tar.gz
+cd edcount-1.2.0
 ./configure
 make
 make install
