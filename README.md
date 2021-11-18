@@ -1,8 +1,6 @@
 edcount
 -------
 
-[![Build Status](https://travis-ci.com/joshwalters/edcount.svg?branch=master)](https://travis-ci.com/joshwalters/edcount)
-
 <p align="center">
     <img src="https://joshwalters.github.io/edcount/demo/edcount_demo.svg">
 </p>
